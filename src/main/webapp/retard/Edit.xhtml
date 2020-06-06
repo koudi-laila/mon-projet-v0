@@ -14,26 +14,28 @@
                     <p:panelGrid columns="2" rendered="#{retardController.selected != null}">
                         <p:outputLabel value="#{bundle.EditRetardLabel_id}" for="id" />
                         <p:inputText id="id" value="#{retardController.selected.id}" title="#{bundle.EditRetardTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditRetardLabel_personne}" for="personne" />
+                        <p:selectOneMenu id="personne" value="#{retardController.selected.personne}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personneController.itemsAvailableSelectOne}"
+                                           var="personneItem"
+                                           itemValue="#{personneItem}" itemLabel="#{personneItem.matricule}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditRetardLabel_motifRetard}" for="motifRetard" />
+                        <p:selectOneMenu id="motifRetard" value="#{retardController.selected.motifRetard}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{motifRetardController.itemsAvailableSelectOne}"
+                                           var="motifRetardItem"
+                                           itemValue="#{motifRetardItem}" itemLabel="#{motifRetardItem.libelle}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditRetardLabel_description}" for="description" />
                         <p:inputText id="description" value="#{retardController.selected.description}" title="#{bundle.EditRetardTitle_description}" />
                         <p:outputLabel value="#{bundle.EditRetardLabel_nombreHeure}" for="nombreHeure" />
                         <p:inputText id="nombreHeure" value="#{retardController.selected.nombreHeure}" title="#{bundle.EditRetardTitle_nombreHeure}" />
                         <p:outputLabel value="#{bundle.EditRetardLabel_dateRetard}" for="dateRetard" />
                         <p:calendar id="dateRetard" pattern="MM/dd/yyyy HH:mm:ss" value="#{retardController.selected.dateRetard}" title="#{bundle.EditRetardTitle_dateRetard}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditRetardLabel_motifRetard}" for="motifRetard" />
-                        <p:selectOneMenu id="motifRetard" value="#{retardController.selected.motifRetard}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{motifRetardController.itemsAvailableSelectOne}"
-                                           var="motifRetardItem"
-                                           itemValue="#{motifRetardItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditRetardLabel_personne}" for="personne" />
-                        <p:selectOneMenu id="personne" value="#{retardController.selected.personne}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{personneController.itemsAvailableSelectOne}"
-                                           var="personneItem"
-                                           itemValue="#{personneItem}"/>
-                        </p:selectOneMenu>
+                        
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{retardController.update}" value="#{bundle.Save}" update="display,:RetardListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RetardEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="RetardEditDialog.hide()"/>

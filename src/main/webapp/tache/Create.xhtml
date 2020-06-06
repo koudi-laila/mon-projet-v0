@@ -12,24 +12,23 @@
             <h:form id="TacheCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tacheController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateTacheLabel_dateDebutEstime}" for="dateDebutEstime" />
-                        <p:calendar id="dateDebutEstime" pattern="MM/dd/yyyy HH:mm:ss" value="#{tacheController.selected.dateDebutEstime}" title="#{bundle.EditTacheTitle_dateDebutEstime}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateTacheLabel_dateDebutReel}" for="dateDebutReel" />
-                        <p:calendar id="dateDebutReel" pattern="MM/dd/yyyy HH:mm:ss" value="#{tacheController.selected.dateDebutReel}" title="#{bundle.EditTacheTitle_dateDebutReel}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateTacheLabel_dateFinEstime}" for="dateFinEstime" />
-                        <p:calendar id="dateFinEstime" pattern="MM/dd/yyyy HH:mm:ss" value="#{tacheController.selected.dateFinEstime}" title="#{bundle.EditTacheTitle_dateFinEstime}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateTacheLabel_dateFintReel}" for="dateFintReel" />
-                        <p:calendar id="dateFintReel" pattern="MM/dd/yyyy HH:mm:ss" value="#{tacheController.selected.dateFintReel}" title="#{bundle.EditTacheTitle_dateFintReel}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateTacheLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{tacheController.selected.id}" title="#{bundle.CreateTacheTitle_id}" />
-                        <p:outputLabel value="#{bundle.CreateTacheLabel_note}" for="note" />
-                        <p:inputText id="note" value="#{tacheController.selected.note}" title="#{bundle.CreateTacheTitle_note}" />
                         <p:outputLabel value="#{bundle.CreateTacheLabel_personne}" for="personne" />
                         <p:selectOneMenu id="personne" value="#{tacheController.selected.personne}" >
                             <f:selectItems value="#{personneController.itemsAvailableSelectOne}"
                                            var="personneItem"
-                                           itemValue="#{personneItem}"/>
+                                           itemValue="#{personneItem}" itemLabel="#{personneItem.matricule}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTacheLabel_dateDebutEstime}" for="dateDebutEstime" />
+                        <p:calendar id="dateDebutEstime" pattern="dd/MM/yyyy HH:mm:ss" value="#{tacheController.selected.dateDebutEstime}" title="#{bundle.EditTacheTitle_dateDebutEstime}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTacheLabel_dateFinEstime}" for="dateFinEstime" />
+                        <p:calendar id="dateFinEstime" pattern="dd/MM/yyyy HH:mm:ss" value="#{tacheController.selected.dateFinEstime}" title="#{bundle.EditTacheTitle_dateFinEstime}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTacheLabel_dateDebutReel}" for="dateDebutReel" />
+                        <p:calendar id="dateDebutReel" pattern="dd/MM/yyyy HH:mm:ss" value="#{tacheController.selected.dateDebutReel}" title="#{bundle.EditTacheTitle_dateDebutReel}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTacheLabel_dateFintReel}" for="dateFintReel" />
+                        <p:calendar id="dateFintReel" pattern="dd/MM/yyyy HH:mm:ss" value="#{tacheController.selected.dateFintReel}" title="#{bundle.EditTacheTitle_dateFintReel}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTacheLabel_note}" for="note" />
+                        <p:inputText id="note" value="#{tacheController.selected.note}" title="#{bundle.CreateTacheTitle_note}" />
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{tacheController.create}" value="#{bundle.Save}" update="display,:TacheListForm:datalist,:growl" oncomplete="handleSubmit(args,'TacheCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TacheCreateDialog.hide()"/>

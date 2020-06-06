@@ -12,8 +12,6 @@
             <h:form id="MotifAbsenceCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{motifAbsenceController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateMotifAbsenceLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{motifAbsenceController.selected.id}" title="#{bundle.CreateMotifAbsenceTitle_id}" />
                         <p:outputLabel value="#{bundle.CreateMotifAbsenceLabel_libelle}" for="libelle" />
                         <p:inputText id="libelle" value="#{motifAbsenceController.selected.libelle}" title="#{bundle.CreateMotifAbsenceTitle_libelle}" />
                     </p:panelGrid>

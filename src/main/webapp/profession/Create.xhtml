@@ -12,10 +12,10 @@
             <h:form id="ProfessionCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{professionController.selected != null}">
+                        
                         <p:outputLabel value="#{bundle.CreateProfessionLabel_libelle}" for="libelle" />
                         <p:inputText id="libelle" value="#{professionController.selected.libelle}" title="#{bundle.CreateProfessionTitle_libelle}" />
-                        <p:outputLabel value="#{bundle.CreateProfessionLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{professionController.selected.id}" title="#{bundle.CreateProfessionTitle_id}" />
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{professionController.create}" value="#{bundle.Save}" update="display,:ProfessionListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProfessionCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ProfessionCreateDialog.hide()"/>

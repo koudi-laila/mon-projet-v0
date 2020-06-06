@@ -11,7 +11,7 @@
         <p:dialog id="PersonneEditDlg" widgetVar="PersonneEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonneTitle}">
             <h:form id="PersonneEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{personneController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{personneController.selected != null}">
                         <p:outputLabel value="#{bundle.EditPersonneLabel_id}" for="id" />
                         <p:inputText id="id" value="#{personneController.selected.id}" title="#{bundle.EditPersonneTitle_id}" />
                         <p:outputLabel value="#{bundle.EditPersonneLabel_matricule}" for="matricule" />

@@ -26,25 +26,33 @@
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAbsenceTitle_personne}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.personne.matricule}"/>
 
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAbsenceTitle_typeAbsence}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.typeAbsence.libelle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAbsenceTitle_motifAbsence}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motifAbsence.libelle}"/>
+                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAbsenceTitle_description}"/>
                             </f:facet>
                             <h:outputText value="#{item.description}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAbsenceTitle_typeAbsence}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.typeAbsence}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAbsenceTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAbsenceTitle_minuteAbsence}"/>
@@ -67,18 +75,8 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAbsenceTitle_motifAbsence}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.motifAbsence}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAbsenceTitle_personne}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.personne}"/>
-                        </p:column>
+
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{absenceController.prepareCreate}" update=":AbsenceCreateForm" oncomplete="PF('AbsenceCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AbsenceViewForm" oncomplete="PF('AbsenceViewDialog').show()" disabled="#{empty absenceController.selected}"/>

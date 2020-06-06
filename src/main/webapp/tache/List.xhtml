@@ -27,43 +27,11 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTacheTitle_dateDebutEstime}"/>
+                                <h:outputText value="#{bundle.ListTacheTitle_personne}"/>
                             </f:facet>
-                            <h:outputText value="#{item.dateDebutEstime}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTacheTitle_dateDebutReel}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dateDebutReel}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTacheTitle_dateFinEstime}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dateFinEstime}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTacheTitle_dateFintReel}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dateFintReel}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTacheTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
+                            <h:outputText value="#{item.personne.matricule}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -73,10 +41,40 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTacheTitle_personne}"/>
+                                <h:outputText value="#{bundle.ListTacheTitle_dateDebutEstime}"/>
                             </f:facet>
-                            <h:outputText value="#{item.personne}"/>
+                            <h:outputText value="#{item.dateDebutEstime}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                            </h:outputText>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTacheTitle_dateFinEstime}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateFinEstime}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTacheTitle_dateDebutReel}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateDebutReel}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTacheTitle_dateFintReel}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateFintReel}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        
+                        
+                       
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{tacheController.prepareCreate}" update=":TacheCreateForm" oncomplete="PF('TacheCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":TacheViewForm" oncomplete="PF('TacheViewDialog').show()" disabled="#{empty tacheController.selected}"/>

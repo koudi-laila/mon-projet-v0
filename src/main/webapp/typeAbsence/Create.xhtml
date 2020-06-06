@@ -12,10 +12,8 @@
             <h:form id="TypeAbsenceCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{typeAbsenceController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateTypeAbsenceLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{typeAbsenceController.selected.id}" title="#{bundle.CreateTypeAbsenceTitle_id}" />
-                        <p:outputLabel value="#{bundle.CreateTypeAbsenceLabel_libelle}" for="libelle" />
-                        <p:inputText id="libelle" value="#{typeAbsenceController.selected.libelle}" title="#{bundle.CreateTypeAbsenceTitle_libelle}" />
+                      <p:outputLabel value="#{bundle.CreateTypeAbsenceLabel_libelle}" for="libelle" />
+                      <p:inputText id="libelle" value="#{typeAbsenceController.selected.libelle}" title="#{bundle.CreateTypeAbsenceTitle_libelle}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{typeAbsenceController.create}" value="#{bundle.Save}" update="display,:TypeAbsenceListForm:datalist,:growl" oncomplete="handleSubmit(args,'TypeAbsenceCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TypeAbsenceCreateDialog.hide()"/>

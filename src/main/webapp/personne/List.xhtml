@@ -29,12 +29,6 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonneTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonneTitle_matricule}"/>
                             </f:facet>
                             <h:outputText value="#{item.matricule}"/>
@@ -49,14 +43,9 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonneTitle_nom}"/>
                             </f:facet>
-                            <h:outputText value="#{item.nom}"/>
+                            <h:outputText value="#{item.nom} #{item.prenom}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonneTitle_prenom}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prenom}"/>
-                        </p:column>
+                       
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonneTitle_dateNaissance}"/>
@@ -65,14 +54,7 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonneTitle_dateEmbauche}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dateEmbauche}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonneTitle_adresse}"/>
@@ -103,35 +85,24 @@
                             </f:facet>
                             <h:outputText value="#{item.situationFamilliale}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonneTitle_nomConjoint}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nomConjoint}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPersonneTitle_nbrEnfant}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nbrEnfant}"/>
-                        </p:column>
+                       
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonneTitle_groupeTravail}"/>
                             </f:facet>
-                            <h:outputText value="#{item.groupeTravail}"/>
+                            <h:outputText value="#{item.groupeTravail.libelle}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonneTitle_sectionTravail}"/>
                             </f:facet>
-                            <h:outputText value="#{item.sectionTravail}"/>
+                            <h:outputText value="#{item.sectionTravail.libelle}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonneTitle_profession}"/>
                             </f:facet>
-                            <h:outputText value="#{item.profession}"/>
+                            <h:outputText value="#{item.profession.libelle}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{personneController.prepareCreate}" update=":PersonneCreateForm" oncomplete="PF('PersonneCreateDialog').show()"/>

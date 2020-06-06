@@ -14,9 +14,7 @@
                     <p:panelGrid columns="2" rendered="#{situationFamillialeController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateSituationFamillialeLabel_libelle}" for="libelle" />
                         <p:inputText id="libelle" value="#{situationFamillialeController.selected.libelle}" title="#{bundle.CreateSituationFamillialeTitle_libelle}" />
-                        <p:outputLabel value="#{bundle.CreateSituationFamillialeLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{situationFamillialeController.selected.id}" title="#{bundle.CreateSituationFamillialeTitle_id}" />
-                    </p:panelGrid>
+                        </p:panelGrid>
                     <p:commandButton actionListener="#{situationFamillialeController.create}" value="#{bundle.Save}" update="display,:SituationFamillialeListForm:datalist,:growl" oncomplete="handleSubmit(args,'SituationFamillialeCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="SituationFamillialeCreateDialog.hide()"/>
                 </h:panelGroup>

@@ -12,26 +12,26 @@
             <h:form id="RetardCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{retardController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateRetardLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{retardController.selected.id}" title="#{bundle.CreateRetardTitle_id}" />
-                        <p:outputLabel value="#{bundle.CreateRetardLabel_description}" for="description" />
-                        <p:inputText id="description" value="#{retardController.selected.description}" title="#{bundle.CreateRetardTitle_description}" />
-                        <p:outputLabel value="#{bundle.CreateRetardLabel_nombreHeure}" for="nombreHeure" />
-                        <p:inputText id="nombreHeure" value="#{retardController.selected.nombreHeure}" title="#{bundle.CreateRetardTitle_nombreHeure}" />
-                        <p:outputLabel value="#{bundle.CreateRetardLabel_dateRetard}" for="dateRetard" />
-                        <p:calendar id="dateRetard" pattern="MM/dd/yyyy HH:mm:ss" value="#{retardController.selected.dateRetard}" title="#{bundle.EditRetardTitle_dateRetard}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateRetardLabel_motifRetard}" for="motifRetard" />
+                       <p:outputLabel value="#{bundle.CreateRetardLabel_personne}" for="personne" />
+                        <p:selectOneMenu id="personne" value="#{retardController.selected.personne}" >
+                            <f:selectItems value="#{personneController.itemsAvailableSelectOne}"
+                                           var="personneItem"
+                                           itemValue="#{personneItem}" itemLabel="#{personneItem.matricule}"/>
+                        </p:selectOneMenu>
+                      <p:outputLabel value="#{bundle.CreateRetardLabel_motifRetard}" for="motifRetard" />
                         <p:selectOneMenu id="motifRetard" value="#{retardController.selected.motifRetard}" >
                             <f:selectItems value="#{motifRetardController.itemsAvailableSelectOne}"
                                            var="motifRetardItem"
                                            itemValue="#{motifRetardItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateRetardLabel_personne}" for="personne" />
-                        <p:selectOneMenu id="personne" value="#{retardController.selected.personne}" >
-                            <f:selectItems value="#{personneController.itemsAvailableSelectOne}"
-                                           var="personneItem"
-                                           itemValue="#{personneItem}"/>
-                        </p:selectOneMenu>
+                         <p:outputLabel value="#{bundle.CreateRetardLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{retardController.selected.description}" title="#{bundle.CreateRetardTitle_description}" />
+                         <p:outputLabel value="#{bundle.CreateRetardLabel_nombreHeure}" for="nombreHeure" />
+                        <p:inputText id="nombreHeure" value="#{retardController.selected.nombreHeure}" title="#{bundle.CreateRetardTitle_nombreHeure}" />
+                        <p:outputLabel value="#{bundle.CreateRetardLabel_dateRetard}" for="dateRetard" />
+                        <p:calendar id="dateRetard" pattern="dd/MM/yyyy HH:mm:ss" value="#{retardController.selected.dateRetard}" title="#{bundle.EditRetardTitle_dateRetard}"  showOn="button"/>
+                        
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{retardController.create}" value="#{bundle.Save}" update="display,:RetardListForm:datalist,:growl" oncomplete="handleSubmit(args,'RetardCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="RetardCreateDialog.hide()"/>

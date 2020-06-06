@@ -18,10 +18,10 @@
                                            var="chefItem"
                                            itemValue="#{chefItem}"/>
                         </p:selectOneMenu>
+                        
                         <p:outputLabel value="#{bundle.CreateSectionTravailLabel_libelle}" for="libelle" />
                         <p:inputText id="libelle" value="#{sectionTravailController.selected.libelle}" title="#{bundle.CreateSectionTravailTitle_libelle}" />
-                        <p:outputLabel value="#{bundle.CreateSectionTravailLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{sectionTravailController.selected.id}" title="#{bundle.CreateSectionTravailTitle_id}" />
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{sectionTravailController.create}" value="#{bundle.Save}" update="display,:SectionTravailListForm:datalist,:growl" oncomplete="handleSubmit(args,'SectionTravailCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="SectionTravailCreateDialog.hide()"/>

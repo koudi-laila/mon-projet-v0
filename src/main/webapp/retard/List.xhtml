@@ -29,9 +29,15 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRetardTitle_id}"/>
+                                <h:outputText value="#{bundle.ListRetardTitle_personne}"/>
                             </f:facet>
-                            <h:outputText value="#{item.id}"/>
+                            <h:outputText value="#{item.personne.matricule}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetardTitle_motifRetard}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motifRetard.libelle}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -53,18 +59,8 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRetardTitle_motifRetard}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.motifRetard}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRetardTitle_personne}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.personne}"/>
-                        </p:column>
+                        
+                        
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{retardController.prepareCreate}" update=":RetardCreateForm" oncomplete="PF('RetardCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RetardViewForm" oncomplete="PF('RetardViewDialog').show()" disabled="#{empty retardController.selected}"/>

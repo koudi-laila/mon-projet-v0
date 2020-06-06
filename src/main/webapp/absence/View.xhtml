@@ -18,20 +18,21 @@
                         <h:outputText value="#{absenceController.selected.typeAbsence}" title="#{bundle.ViewAbsenceTitle_typeAbsence}"/>
                         <h:outputText value="#{bundle.ViewAbsenceLabel_id}"/>
                         <h:outputText value="#{absenceController.selected.id}" title="#{bundle.ViewAbsenceTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewAbsenceLabel_personne}"/>
+                        <h:outputText value="#{absenceController.selected.personne}" title="#{bundle.ViewAbsenceTitle_personne}"/>
+                        <h:outputText value="#{bundle.ViewAbsenceLabel_motifAbsence}"/>
+                        <h:outputText value="#{absenceController.selected.motifAbsence}" title="#{bundle.ViewAbsenceTitle_motifAbsence}"/>
                         <h:outputText value="#{bundle.ViewAbsenceLabel_minuteAbsence}"/>
                         <h:outputText value="#{absenceController.selected.minuteAbsence}" title="#{bundle.ViewAbsenceTitle_minuteAbsence}"/>
                         <h:outputText value="#{bundle.ViewAbsenceLabel_dateDebut}"/>
                         <h:outputText value="#{absenceController.selected.dateDebut}" title="#{bundle.ViewAbsenceTitle_dateDebut}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewAbsenceLabel_dateFin}"/>
                         <h:outputText value="#{absenceController.selected.dateFin}" title="#{bundle.ViewAbsenceTitle_dateFin}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewAbsenceLabel_motifAbsence}"/>
-                        <h:outputText value="#{absenceController.selected.motifAbsence}" title="#{bundle.ViewAbsenceTitle_motifAbsence}"/>
-                        <h:outputText value="#{bundle.ViewAbsenceLabel_personne}"/>
-                        <h:outputText value="#{absenceController.selected.personne}" title="#{bundle.ViewAbsenceTitle_personne}"/>
+                        
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="AbsenceViewDialog.hide()"/>
                 </h:panelGroup>

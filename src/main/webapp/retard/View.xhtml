@@ -12,20 +12,20 @@
             <h:form id="RetardViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{retardController.selected != null}">
-                        <h:outputText value="#{bundle.ViewRetardLabel_id}"/>
-                        <h:outputText value="#{retardController.selected.id}" title="#{bundle.ViewRetardTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewRetardLabel_personne}"/>
+                        <h:outputText value="#{retardController.selected.personne}" title="#{bundle.ViewRetardTitle_personne}"/>
+                        <h:outputText value="#{bundle.ViewRetardLabel_motifRetard}"/>
+                        <h:outputText value="#{retardController.selected.motifRetard}" title="#{bundle.ViewRetardTitle_motifRetard}"/>
                         <h:outputText value="#{bundle.ViewRetardLabel_description}"/>
                         <h:outputText value="#{retardController.selected.description}" title="#{bundle.ViewRetardTitle_description}"/>
                         <h:outputText value="#{bundle.ViewRetardLabel_nombreHeure}"/>
                         <h:outputText value="#{retardController.selected.nombreHeure}" title="#{bundle.ViewRetardTitle_nombreHeure}"/>
                         <h:outputText value="#{bundle.ViewRetardLabel_dateRetard}"/>
                         <h:outputText value="#{retardController.selected.dateRetard}" title="#{bundle.ViewRetardTitle_dateRetard}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewRetardLabel_motifRetard}"/>
-                        <h:outputText value="#{retardController.selected.motifRetard}" title="#{bundle.ViewRetardTitle_motifRetard}"/>
-                        <h:outputText value="#{bundle.ViewRetardLabel_personne}"/>
-                        <h:outputText value="#{retardController.selected.personne}" title="#{bundle.ViewRetardTitle_personne}"/>
+                        
+                        
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="RetardViewDialog.hide()"/>
                 </h:panelGroup>

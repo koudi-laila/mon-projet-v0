@@ -20,11 +20,30 @@
                 <h:form id="menuForm">
                     <p:menubar>
                         <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
-                        <p:submenu label="#{bundle.Maintenance}">
-                            <p:menuitem value="GroupeTravail" outcome="/groupeTravail/List.xhtml" />
+                      
+                        
+                        
+                        <p:submenu label="Personnel">
                             <p:menuitem value="Personne" outcome="/personne/List.xhtml" />
+                             <p:menuitem value="GroupeTravail" outcome="/groupeTravail/List.xhtml" />
                             <p:menuitem value="SectionTravail" outcome="/sectionTravail/List.xhtml" />
                             <p:menuitem value="SituationFamilliale" outcome="/situationFamilliale/List.xhtml" />
+                            <p:menuitem value="Profession" outcome="/profession/List.xhtml" />
+                        </p:submenu>
+                        
+                         <p:submenu label="Absence">
+                            <p:menuitem value="Absence" outcome="/absence/List.xhtml" />
+                            <p:menuitem value="Type Absence" outcome="/typeAbsence/List.xhtml" />
+                             <p:menuitem value="Motif Absence" outcome="/motifAbsence/List.xhtml" />
+                        </p:submenu>
+                        
+                        <p:submenu label="Retard">
+                            <p:menuitem value="Retard" outcome="/retard/List.xhtml" />
+                            <p:menuitem value="Motif Retard" outcome="/motifRetard/List.xhtml" />
+                        </p:submenu>
+                        
+                        <p:submenu label="Tache">
+                            <p:menuitem value="Tache" outcome="/tache/List.xhtml" />
                         </p:submenu>
                     </p:menubar>
                 </h:form>

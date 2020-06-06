@@ -14,9 +14,7 @@
                     <p:panelGrid columns="2" rendered="#{groupeTravailController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateGroupeTravailLabel_libelle}" for="libelle" />
                         <p:inputText id="libelle" value="#{groupeTravailController.selected.libelle}" title="#{bundle.CreateGroupeTravailTitle_libelle}" />
-                        <p:outputLabel value="#{bundle.CreateGroupeTravailLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{groupeTravailController.selected.id}" title="#{bundle.CreateGroupeTravailTitle_id}" />
-                    </p:panelGrid>
+                         </p:panelGrid>
                     <p:commandButton actionListener="#{groupeTravailController.create}" value="#{bundle.Save}" update="display,:GroupeTravailListForm:datalist,:growl" oncomplete="handleSubmit(args,'GroupeTravailCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="GroupeTravailCreateDialog.hide()"/>
                 </h:panelGroup>

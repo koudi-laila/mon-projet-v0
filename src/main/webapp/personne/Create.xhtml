@@ -11,9 +11,7 @@
         <p:dialog id="PersonneCreateDlg" widgetVar="PersonneCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonneTitle}">
             <h:form id="PersonneCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{personneController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreatePersonneLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{personneController.selected.id}" title="#{bundle.CreatePersonneTitle_id}" />
+                    <p:panelGrid columns="4" rendered="#{personneController.selected != null}">
                         <p:outputLabel value="#{bundle.CreatePersonneLabel_matricule}" for="matricule" />
                         <p:inputText id="matricule" value="#{personneController.selected.matricule}" title="#{bundle.CreatePersonneTitle_matricule}" />
                         <p:outputLabel value="#{bundle.CreatePersonneLabel_cin}" for="cin" />
@@ -23,9 +21,9 @@
                         <p:outputLabel value="#{bundle.CreatePersonneLabel_prenom}" for="prenom" />
                         <p:inputText id="prenom" value="#{personneController.selected.prenom}" title="#{bundle.CreatePersonneTitle_prenom}" />
                         <p:outputLabel value="#{bundle.CreatePersonneLabel_dateNaissance}" for="dateNaissance" />
-                        <p:calendar id="dateNaissance" pattern="MM/dd/yyyy" value="#{personneController.selected.dateNaissance}" title="#{bundle.EditPersonneTitle_dateNaissance}"  showOn="button"/>
+                        <p:calendar id="dateNaissance" pattern="dd/MM/yyyy" value="#{personneController.selected.dateNaissance}" title="#{bundle.EditPersonneTitle_dateNaissance}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreatePersonneLabel_dateEmbauche}" for="dateEmbauche" />
-                        <p:calendar id="dateEmbauche" pattern="MM/dd/yyyy" value="#{personneController.selected.dateEmbauche}" title="#{bundle.EditPersonneTitle_dateEmbauche}"  showOn="button"/>
+                        <p:calendar id="dateEmbauche" pattern="dd/MM/yyyy" value="#{personneController.selected.dateEmbauche}" title="#{bundle.EditPersonneTitle_dateEmbauche}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreatePersonneLabel_adresse}" for="adresse" />
                         <p:inputText id="adresse" value="#{personneController.selected.adresse}" title="#{bundle.CreatePersonneTitle_adresse}" />
                         <p:outputLabel value="#{bundle.CreatePersonneLabel_tel}" for="tel" />

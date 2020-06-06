@@ -12,8 +12,6 @@
             <h:form id="MotifRetardCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{motifRetardController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateMotifRetardLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{motifRetardController.selected.id}" title="#{bundle.CreateMotifRetardTitle_id}" />
                         <p:outputLabel value="#{bundle.CreateMotifRetardLabel_libelle}" for="libelle" />
                         <p:inputText id="libelle" value="#{motifRetardController.selected.libelle}" title="#{bundle.CreateMotifRetardTitle_libelle}" />
                     </p:panelGrid>

@@ -24,6 +24,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class Personne implements Serializable {
 
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -56,7 +57,9 @@ public class Personne implements Serializable {
     private List<Retard> retards;
     @OneToMany(mappedBy = "personne")
     private List<Tache> taches;
-
+    
+    private String password;
+    
     public Long getId() {
         return id;
     }
@@ -65,6 +68,7 @@ public class Personne implements Serializable {
         this.id = id;
     }
 
+    
     public List<Absence> getAbsences() {
         return absences;
     }
@@ -215,6 +219,14 @@ public class Personne implements Serializable {
 
     public void setTaches(List<Tache> taches) {
         this.taches = taches;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

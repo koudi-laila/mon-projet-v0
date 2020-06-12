@@ -15,6 +15,43 @@
 
         <ui:define name="body">
             <h:form id="RetardListForm">
+
+                <p:panel header="Recherche">
+
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="8">
+                            <p:outputLabel value="#{bundle.CreateRetardLabel_personne}" for="personne" />
+                            <p:selectOneMenu id="personne" value="#{retardController.retardSearch.personne}" >
+                                <f:selectItem itemValue="#{null}" itemLabel="--SELECT--"/>
+                                <f:selectItems value="#{personneController.itemsAvailableSelectOne}"
+                                               var="personneItem"
+                                               itemValue="#{personneItem}" itemLabel="#{personneItem.matricule}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{bundle.CreateRetardLabel_motifRetard}" for="motifRetard" />
+                            <p:selectOneMenu id="motifRetard" value="#{retardController.retardSearch.motifRetard}" >
+                                <f:selectItem itemValue="#{null}" itemLabel="--SELECT--"/>
+                                <f:selectItems value="#{motifRetardController.itemsAvailableSelectOne}"
+                                               var="motifRetardItem"
+                                               itemValue="#{motifRetardItem}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{bundle.CreateRetardLabel_description}" for="description" />
+                            <p:inputText id="description" value="#{retardController.retardSearch.description}" title="#{bundle.CreateRetardTitle_description}" />
+
+                            <p:outputLabel value="#{bundle.CreateRetardLabel_nombreHeure}Min" for="nombreHeureMin" />
+                            <p:inputText id="nombreHeureMin" value="#{retardController.nombreHeureMin}" title="#{bundle.CreateRetardTitle_nombreHeure}Min" />
+
+                            <p:outputLabel value="#{bundle.CreateRetardLabel_nombreHeure}Max" for="nombreHeureMax" />
+                            <p:inputText id="nombreHeureMax" value="#{retardController.nombreHeureMax}" title="#{bundle.CreateRetardTitle_nombreHeure}Max" />
+
+                            <p:commandButton actionListener="#{retardController.search()}" value="Search" update=":RetardListForm:datalist" />
+
+                        </p:panelGrid>
+                    </h:panelGroup>
+                </p:panel>
+
+
                 <p:panel header="#{bundle.ListRetardTitle}">
                     <p:dataTable id="datalist" value="#{retardController.items}" var="item"
                                  selectionMode="single" selection="#{retardController.selected}"
@@ -56,11 +93,11 @@
                                 <h:outputText value="#{bundle.ListRetardTitle_dateRetard}"/>
                             </f:facet>
                             <h:outputText value="#{item.dateRetard}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                             </h:outputText>
                         </p:column>
-                        
-                        
+
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{retardController.prepareCreate}" update=":RetardCreateForm" oncomplete="PF('RetardCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RetardViewForm" oncomplete="PF('RetardViewDialog').show()" disabled="#{empty retardController.selected}"/>

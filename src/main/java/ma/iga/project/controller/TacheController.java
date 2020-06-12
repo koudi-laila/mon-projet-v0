@@ -6,6 +6,7 @@ import ma.iga.project.controller.util.JsfUtil.PersistAction;
 import ma.iga.project.service.TacheFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,6 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import ma.iga.project.bean.Personne;
 
 @Named("tacheController")
 @SessionScoped
@@ -26,12 +28,46 @@ public class TacheController implements Serializable {
     @EJB
     private ma.iga.project.service.TacheFacade ejbFacade;
     private List<Tache> items = null;
+    private Tache searchtache = new Tache();
     private Tache selected;
+    private String note;
+    private Personne personne;
 
     public TacheController() {
     }
 
+    public void search() {
+        items = ejbFacade.search(searchtache, note, null, null, null, null, personne);
+    }
+
+    public Tache getSearchtache() {
+        return searchtache;
+    }
+
+    public void setSearchtache(Tache searchtache) {
+        this.searchtache = searchtache;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Personne getPersonne() {
+        return personne;
+    }
+
+    public void setPersonne(Personne personne) {
+        this.personne = personne;
+    }
+
     public Tache getSelected() {
+        if (selected == null) {
+            selected = new Tache();
+        }
         return selected;
     }
 
@@ -76,7 +112,7 @@ public class TacheController implements Serializable {
 
     public List<Tache> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = new ArrayList<>();
         }
         return items;
     }
@@ -159,7 +195,6 @@ public class TacheController implements Serializable {
                 return null;
             }
         }
-        
 
     }
 

@@ -6,7 +6,9 @@ import ma.iga.project.controller.util.JsfUtil.PersistAction;
 import ma.iga.project.service.PersonneFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,16 +29,143 @@ public class PersonneController implements Serializable {
     private ma.iga.project.service.PersonneFacade ejbFacade;
     private List<Personne> items = null;
     private Personne selected;
+   
+    private Personne personneSearch = new Personne();
+    private String matricule;
+    private String cin;
+    private String nom;
+    private String prenom;
+    private String adresse;
+    private String tel;
+    private String numeroMutuel;
+    private String numeroCnss;
+    private String nomConjoint;
+    private String password;
+    private  int cp;
+  
 
+    public void search() {
+        items=ejbFacade.search(personneSearch, matricule, cin, nom, prenom, null, null, adresse, tel, numeroMutuel, numeroCnss, nomConjoint);
+        
+    }
+    public void authenticated() {
+        System.out.println("pffffffffffffffffff");
+        cp=ejbFacade.seConnecter(matricule,password);
+        
+       
+    }
     public PersonneController() {
     }
 
+    
     public Personne getSelected() {
+         if (selected == null) {
+            selected = new Personne();
+        }
         return selected;
     }
 
     public void setSelected(Personne selected) {
         this.selected = selected;
+    }
+
+    public Personne getPersonneSearch() {
+        return personneSearch;
+    }
+
+    public void setPersonneSearch(Personne personneSearch) {
+        this.personneSearch = personneSearch;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getCp() {
+        return cp;
+    }
+
+    public void setCp(int cp) {
+        this.cp = cp;
+    }
+
+    
+
+    
+    public String getMatricule() {
+        return matricule;
+    }
+
+    public void setMatricule(String matricule) {
+        this.matricule = matricule;
+    }
+
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getNumeroMutuel() {
+        return numeroMutuel;
+    }
+
+    public void setNumeroMutuel(String numeroMutuel) {
+        this.numeroMutuel = numeroMutuel;
+    }
+
+    public String getNumeroCnss() {
+        return numeroCnss;
+    }
+
+    public void setNumeroCnss(String numeroCnss) {
+        this.numeroCnss = numeroCnss;
+    }
+
+    public String getNomConjoint() {
+        return nomConjoint;
+    }
+
+    public void setNomConjoint(String nomConjoint) {
+        this.nomConjoint = nomConjoint;
     }
 
     protected void setEmbeddableKeys() {
@@ -45,6 +174,7 @@ public class PersonneController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
+    
     private PersonneFacade getFacade() {
         return ejbFacade;
     }
@@ -76,7 +206,7 @@ public class PersonneController implements Serializable {
 
     public List<Personne> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = new ArrayList<>();
         }
         return items;
     }
@@ -85,7 +215,9 @@ public class PersonneController implements Serializable {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction != PersistAction.DELETE) {
+                if (persistAction == PersistAction.CREATE) {
+                    getFacade().create(selected);
+                }else  if (persistAction == PersistAction.UPDATE) {
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);

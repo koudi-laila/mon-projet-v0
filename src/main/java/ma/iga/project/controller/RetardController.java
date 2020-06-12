@@ -6,6 +6,8 @@ import ma.iga.project.controller.util.JsfUtil.PersistAction;
 import ma.iga.project.service.RetardFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -25,13 +27,32 @@ public class RetardController implements Serializable {
 
     @EJB
     private ma.iga.project.service.RetardFacade ejbFacade;
+
     private List<Retard> items = null;
     private Retard selected;
+    private Retard retardSearch = new Retard();
+    private Float nombreHeureMin;
+    private Float nombreHeureMax;
+
+    public void search() {
+        items = ejbFacade.search(retardSearch, nombreHeureMin, nombreHeureMax, null, null);
+    }
 
     public RetardController() {
     }
 
+    public Retard getRetardSearch() {
+        return retardSearch;
+    }
+
+    public void setRetardSearch(Retard retardSearch) {
+        this.retardSearch = retardSearch;
+    }
+
     public Retard getSelected() {
+        if (selected == null) {
+            selected = new Retard();
+        }
         return selected;
     }
 
@@ -76,9 +97,33 @@ public class RetardController implements Serializable {
 
     public List<Retard> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = new ArrayList<>();
         }
         return items;
+    }
+
+    public RetardFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(RetardFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public Float getNombreHeureMin() {
+        return nombreHeureMin;
+    }
+
+    public void setNombreHeureMin(Float nombreHeureMin) {
+        this.nombreHeureMin = nombreHeureMin;
+    }
+
+    public Float getNombreHeureMax() {
+        return nombreHeureMax;
+    }
+
+    public void setNombreHeureMax(Float nombreHeureMax) {
+        this.nombreHeureMax = nombreHeureMax;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

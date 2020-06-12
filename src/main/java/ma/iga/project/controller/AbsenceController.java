@@ -1,8 +1,6 @@
 package ma.iga.project.controller;
 
 import ma.iga.project.bean.Absence;
-import ma.iga.project.controller.util.JsfUtil;
-import ma.iga.project.controller.util.JsfUtil.PersistAction;
 import ma.iga.project.service.AbsenceFacade;
 
 import java.io.Serializable;
@@ -18,20 +16,37 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import ma.iga.project.controller.util.JsfUtil.PersistAction;
 
 @Named("absenceController")
 @SessionScoped
 public class AbsenceController implements Serializable {
 
     @EJB
-    private ma.iga.project.service.AbsenceFacade ejbFacade;
+    private AbsenceFacade ejbFacade;
     private List<Absence> items = null;
     private Absence selected;
+    private Absence searchabsence = new Absence();
 
     public AbsenceController() {
     }
 
+    public void search() {
+        items = ejbFacade.search(searchabsence, null, null, null);
+    }
+
+    public Absence getSearchabsence() {
+        return searchabsence;
+    }
+
+    public void setSearchabsence(Absence searchabsence) {
+        this.searchabsence = searchabsence;
+    }
+
     public Absence getSelected() {
+        if (selected == null) {
+            selected = new Absence();
+        }
         return selected;
     }
 

@@ -15,6 +15,28 @@
 
         <ui:define name="body">
             <h:form id="TacheListForm">
+                 <h:panelGroup id="display">
+                    <p:panelGrid columns="6" rendered="#{tacheController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTacheLabel_personne}" for="personne" />
+                        <p:selectOneMenu id="personne" value="#{tacheController.searchtache.personne}" >
+                            <f:selectItem itemValue="#{null}" itemLabel="--SELECT--"/>
+                            <f:selectItems value="#{personneController.itemsAvailableSelectOne}"
+                                           var="personneItem"
+                                           itemValue="#{personneItem}" itemLabel="#{personneItem.matricule}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateTacheLabel_dateDebutEstime}" for="dateDebutEstime" />
+                        <p:calendar id="dateDebutEstime" pattern="dd/MM/yyyy HH:mm:ss" value="#{tacheController.searchtache.dateDebutEstime}" title="#{bundle.EditTacheTitle_dateDebutEstime}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTacheLabel_dateFinEstime}" for="dateFinEstime" />
+                        <p:calendar id="dateFinEstime" pattern="dd/MM/yyyy HH:mm:ss" value="#{tacheController.searchtache.dateFinEstime}" title="#{bundle.EditTacheTitle_dateFinEstime}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTacheLabel_dateDebutReel}" for="dateDebutReel" />
+                        <p:calendar id="dateDebutReel" pattern="dd/MM/yyyy HH:mm:ss" value="#{tacheController.searchtache.dateDebutReel}" title="#{bundle.EditTacheTitle_dateDebutReel}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTacheLabel_dateFintReel}" for="dateFintReel" />
+                        <p:calendar id="dateFintReel" pattern="dd/MM/yyyy HH:mm:ss" value="#{tacheController.searchtache.dateFintReel}" title="#{bundle.EditTacheTitle_dateFintReel}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateTacheLabel_note}" for="note" />
+                        <p:inputText id="note" value="#{tacheController.searchtache.note}" title="#{bundle.CreateTacheTitle_note}" />
+                         <p:commandButton actionListener="#{tacheController.search()}" value="Search" update=":TacheListForm:datalist" />
+                    </p:panelGrid>
+                </h:panelGroup>
                 <p:panel header="#{bundle.ListTacheTitle}">
                     <p:dataTable id="datalist" value="#{tacheController.items}" var="item"
                                  selectionMode="single" selection="#{tacheController.selected}"

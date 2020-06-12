@@ -5,6 +5,8 @@
  */
 package ma.iga.project.service;
 
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,6 +22,20 @@ public class RetardFacade extends AbstractFacade<Retard> {
     @PersistenceContext(unitName = "ma.iga_project_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
+    public List<Retard> search(Retard retard, Float nombreHeureMin, Float nombreHeureMax,
+            Date dateRetardMin, Date dateRetardMax) {
+        String query = initQuery();
+        query += addConstraintLike("description", retard.getDescription());
+        if (retard.getPersonne() != null) {
+            query += addConstraint("personne.matricule", retard.getPersonne().getMatricule());
+        }
+        if (retard.getMotifRetard() != null) {
+            query += addConstraint("motifRetard.libelle", retard.getMotifRetard().getLibelle());
+        }
+        System.out.println("query = " + query);
+        return em.createQuery(query).getResultList();
+    }
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -28,5 +44,5 @@ public class RetardFacade extends AbstractFacade<Retard> {
     public RetardFacade() {
         super(Retard.class);
     }
-    
+
 }

@@ -12,22 +12,23 @@
             <h:form id="AbsenceEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{absenceController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditAbsenceLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{absenceController.selected.id}" title="#{bundle.EditAbsenceTitle_id}" />
-                        <p:outputLabel value="#{bundle.EditAbsenceLabel_personne}" for="personne" />
-                        <p:selectOneMenu id="personne" value="#{absenceController.selected.personne}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{personneController.itemsAvailableSelectOne}"
-                                           var="personneItem"
-                                           itemValue="#{personneItem}" itemLabel="#{personneItem.matricule}"/>
-                        </p:selectOneMenu>
-                       <p:outputLabel value="#{bundle.EditAbsenceLabel_typeAbsence}" for="typeAbsence" />
+                        <p:outputLabel value="#{bundle.EditAbsenceLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{absenceController.selected.description}" title="#{bundle.EditAbsenceTitle_description}" />
+                        <p:outputLabel value="#{bundle.EditAbsenceLabel_typeAbsence}" for="typeAbsence" />
                         <p:selectOneMenu id="typeAbsence" value="#{absenceController.selected.typeAbsence}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{typeAbsenceController.itemsAvailableSelectOne}"
                                            var="typeAbsenceItem"
                                            itemValue="#{typeAbsenceItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditAbsenceLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{absenceController.selected.id}" title="#{bundle.EditAbsenceTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditAbsenceLabel_minuteAbsence}" for="minuteAbsence" />
+                        <p:inputText id="minuteAbsence" value="#{absenceController.selected.minuteAbsence}" title="#{bundle.EditAbsenceTitle_minuteAbsence}" />
+                        <p:outputLabel value="#{bundle.EditAbsenceLabel_dateDebut}" for="dateDebut" />
+                        <p:calendar id="dateDebut" pattern="MM/dd/yyyy HH:mm:ss" value="#{absenceController.selected.dateDebut}" title="#{bundle.EditAbsenceTitle_dateDebut}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditAbsenceLabel_dateFin}" for="dateFin" />
+                        <p:calendar id="dateFin" pattern="MM/dd/yyyy HH:mm:ss" value="#{absenceController.selected.dateFin}" title="#{bundle.EditAbsenceTitle_dateFin}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditAbsenceLabel_motifAbsence}" for="motifAbsence" />
                         <p:selectOneMenu id="motifAbsence" value="#{absenceController.selected.motifAbsence}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -35,17 +36,13 @@
                                            var="motifAbsenceItem"
                                            itemValue="#{motifAbsenceItem}"/>
                         </p:selectOneMenu>
-                         <p:outputLabel value="#{bundle.EditAbsenceLabel_description}" for="description" />
-                        <p:inputText id="description" value="#{absenceController.selected.description}" title="#{bundle.EditAbsenceTitle_description}" />
-                        
-                        <p:outputLabel value="#{bundle.EditAbsenceLabel_minuteAbsence}" for="minuteAbsence" />
-                        <p:inputText id="minuteAbsence" value="#{absenceController.selected.minuteAbsence}" title="#{bundle.EditAbsenceTitle_minuteAbsence}" />
-                        <p:outputLabel value="#{bundle.EditAbsenceLabel_dateDebut}" for="dateDebut" />
-                        <p:calendar id="dateDebut" pattern="dd/MM/yyyy HH:mm:ss" value="#{absenceController.selected.dateDebut}" title="#{bundle.EditAbsenceTitle_dateDebut}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditAbsenceLabel_dateFin}" for="dateFin" />
-                        <p:calendar id="dateFin" pattern="dd/MM/yyyy HH:mm:ss" value="#{absenceController.selected.dateFin}" title="#{bundle.EditAbsenceTitle_dateFin}"  showOn="button"/>
-                        
-                        
+                        <p:outputLabel value="#{bundle.EditAbsenceLabel_personne}" for="personne" />
+                        <p:selectOneMenu id="personne" value="#{absenceController.selected.personne}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{personneController.itemsAvailableSelectOne}"
+                                           var="personneItem"
+                                           itemValue="#{personneItem}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{absenceController.update}" value="#{bundle.Save}" update="display,:AbsenceListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AbsenceEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="AbsenceEditDialog.hide()"/>

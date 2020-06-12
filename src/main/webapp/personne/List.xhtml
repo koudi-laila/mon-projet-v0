@@ -15,6 +15,68 @@
 
         <ui:define name="body">
             <h:form id="PersonneListForm">
+                <p:panel header="Recherche">
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="8" rendered="#{personneController.selected != null}">
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_matricule}" for="matricule" />
+                            <p:inputText id="matricule" value="#{personneController.personneSearch.matricule}" title="#{bundle.CreatePersonneTitle_matricule}" />
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_cin}" for="cin" />
+                            <p:inputText id="cin" value="#{personneController.personneSearch.cin}" title="#{bundle.CreatePersonneTitle_cin}" />
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_nom}" for="nom" />
+                            <p:inputText id="nom" value="#{personneController.personneSearch.nom}" title="#{bundle.CreatePersonneTitle_nom}" />
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_prenom}" for="prenom" />
+                            <p:inputText id="prenom" value="#{personneController.personneSearch.prenom}" title="#{bundle.CreatePersonneTitle_prenom}" />
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_dateNaissance}" for="dateNaissance" />
+                            <p:calendar id="dateNaissance" pattern="dd/MM/yyyy" value="#{personneController.personneSearch.dateNaissance}" title="#{bundle.EditPersonneTitle_dateNaissance}"  showOn="button"/>
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_dateEmbauche}" for="dateEmbauche" />
+                            <p:calendar id="dateEmbauche" pattern="dd/MM/yyyy" value="#{personneController.personneSearch.dateEmbauche}" title="#{bundle.EditPersonneTitle_dateEmbauche}"  showOn="button"/>
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_adresse}" for="adresse" />
+                            <p:inputText id="adresse" value="#{personneController.personneSearch.adresse}" title="#{bundle.CreatePersonneTitle_adresse}" />
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_tel}" for="tel" />
+                            <p:inputText id="tel" value="#{personneController.personneSearch.tel}" title="#{bundle.CreatePersonneTitle_tel}" />
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_numeroMutuel}" for="numeroMutuel" />
+                            <p:inputText id="numeroMutuel" value="#{personneController.personneSearch.numeroMutuel}" title="#{bundle.CreatePersonneTitle_numeroMutuel}" />
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_numeroCnss}" for="numeroCnss" />
+                            <p:inputText id="numeroCnss" value="#{personneController.personneSearch.numeroCnss}" title="#{bundle.CreatePersonneTitle_numeroCnss}" />
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_situationFamilliale}" for="situationFamilliale" />
+                            <p:selectOneMenu id="situationFamilliale" value="#{personneController.personneSearch.situationFamilliale}" >
+                               <f:selectItem itemValue="#{null}" itemLabel="--SELECT--"/>
+                                <f:selectItems value="#{situationFamillialeController.itemsAvailableSelectOne}"
+                                               var="situationFamillialeItem"
+                                               itemValue="#{situationFamillialeItem}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_nomConjoint}" for="nomConjoint" />
+                            <p:inputText id="nomConjoint" value="#{personneController.personneSearch.nomConjoint}" title="#{bundle.CreatePersonneTitle_nomConjoint}" />
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_nbrEnfant}" for="nbrEnfant" />
+                            <p:inputText id="nbrEnfant" value="#{personneController.personneSearch.nbrEnfant}" title="#{bundle.CreatePersonneTitle_nbrEnfant}" />
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_groupeTravail}" for="groupeTravail" />
+                            <p:selectOneMenu id="groupeTravail" value="#{personneController.personneSearch.groupeTravail}" >
+                                <f:selectItem itemValue="#{null}" itemLabel="--SELECT--"/>
+                                <f:selectItems value="#{groupeTravailController.itemsAvailableSelectOne}"
+                                               var="groupeTravailItem"
+                                               itemValue="#{groupeTravailItem}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_sectionTravail}" for="sectionTravail" />
+                            <p:selectOneMenu id="sectionTravail" value="#{personneController.personneSearch.sectionTravail}" >
+                               <f:selectItem itemValue="#{null}" itemLabel="--SELECT--"/>
+                                <f:selectItems value="#{sectionTravailController.itemsAvailableSelectOne}"
+                                               var="sectionTravailItem"
+                                               itemValue="#{sectionTravailItem}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="#{bundle.CreatePersonneLabel_profession}" for="profession" />
+                            <p:selectOneMenu id="profession" value="#{personneController.personneSearch.profession}" >
+                                <f:selectItem itemValue="#{null}" itemLabel="--SELECT--"/>
+                                <f:selectItems value="#{professionController.itemsAvailableSelectOne}"
+                                               var="professionItem"
+                                               itemValue="#{professionItem}"/>
+                            </p:selectOneMenu>
+                            <p:commandButton actionListener="#{personneController.search()}" value="Search" update=":PersonneListForm:datalist" />
+                        </p:panelGrid>
+                    </h:panelGroup>
+
+                </p:panel>
+
+
                 <p:panel header="#{bundle.ListPersonneTitle}">
                     <p:dataTable id="datalist" value="#{personneController.items}" var="item"
                                  selectionMode="single" selection="#{personneController.selected}"
@@ -45,7 +107,7 @@
                             </f:facet>
                             <h:outputText value="#{item.nom} #{item.prenom}"/>
                         </p:column>
-                       
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonneTitle_dateNaissance}"/>
@@ -54,7 +116,7 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:column>
-                        
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonneTitle_adresse}"/>
@@ -85,7 +147,7 @@
                             </f:facet>
                             <h:outputText value="#{item.situationFamilliale}"/>
                         </p:column>
-                       
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonneTitle_groupeTravail}"/>

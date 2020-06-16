@@ -168,6 +168,7 @@
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{personneController.prepareCreate}" update=":PersonneCreateForm" oncomplete="PF('PersonneCreateDialog').show()"/>
+                            <p:commandButton id="exportButton"   icon="ui-icon-pdf" value="Export" action="#{personneController.generatePDF()}" ajax="false"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PersonneViewForm" oncomplete="PF('PersonneViewDialog').show()" disabled="#{empty personneController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PersonneEditForm" oncomplete="PF('PersonneEditDialog').show()" disabled="#{empty personneController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{personneController.destroy}" update=":growl,datalist" disabled="#{empty personneController.selected}"/>

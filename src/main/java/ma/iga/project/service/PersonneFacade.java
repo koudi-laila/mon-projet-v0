@@ -7,7 +7,9 @@ package ma.iga.project.service;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -32,6 +34,7 @@ public class PersonneFacade extends AbstractFacade<Personne> {
     @PersistenceContext(unitName = "ma.iga_project_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
+     
     public List<Personne> search(Personne personne, String matricule, String cin,
             String nom, String prenom, Date dateNaissance, Date dateEmbauche, String adresse, String tel,
             String numeroMutuel, String numeroCnss,
@@ -84,13 +87,7 @@ public class PersonneFacade extends AbstractFacade<Personne> {
         } else if (!personne.getPassword().equals(HashUtil.hashSHA(password))) {
             return -2;
         } else {
-            System.out.println("mrhba");
-             try {
-                request.login(matricule, HashUtil.hashSHA(password));
-                
-            } catch (ServletException ex) {
-                Logger.getLogger(PersonneFacade.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            System.out.println("");
             return 1;
         }
     }

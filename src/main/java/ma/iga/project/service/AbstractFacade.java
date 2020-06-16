@@ -19,6 +19,9 @@ public abstract class AbstractFacade<T> {
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
+    public String initQuery(String item) {
+        return "SELECT  " + item + " FROM " + entityClass.getSimpleName() + " " + item + " WHERE 1=1";
+    }
 
     public String initQuery() {
         return initQuery("item");
@@ -61,9 +64,7 @@ public abstract class AbstractFacade<T> {
         return result;
     }
 
-    public String initQuery(String item) {
-        return "SELECT  " + item + " FROM " + entityClass.getSimpleName() + " " + item + " WHERE 1=1";
-    }
+    
 
     public String addConstraint(String item, String key, String value, String operator) {
         if (value != null && !value.isEmpty()) {

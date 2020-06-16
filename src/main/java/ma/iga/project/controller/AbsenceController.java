@@ -4,6 +4,7 @@ import ma.iga.project.bean.Absence;
 import ma.iga.project.service.AbsenceFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -17,6 +18,17 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import ma.iga.project.controller.util.JsfUtil.PersistAction;
+import ma.iga.project.vo.AbsenceChefVo;
+import org.primefaces.model.charts.ChartData;
+import org.primefaces.model.charts.axes.cartesian.CartesianScales;
+import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
+import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearTicks;
+import org.primefaces.model.charts.bar.BarChartDataSet;
+import org.primefaces.model.charts.bar.BarChartModel;
+import org.primefaces.model.charts.bar.BarChartOptions;
+import org.primefaces.model.charts.optionconfig.legend.Legend;
+import org.primefaces.model.charts.optionconfig.legend.LegendLabel;
+import org.primefaces.model.charts.optionconfig.title.Title;
 
 @Named("absenceController")
 @SessionScoped
@@ -27,12 +39,107 @@ public class AbsenceController implements Serializable {
     private List<Absence> items = null;
     private Absence selected;
     private Absence searchabsence = new Absence();
-
+    
+    private AbsenceChefVo searchabsenceGraphe = new AbsenceChefVo();
+    private BarChartModel barModel ;
+    List<AbsenceChefVo> abs;
     public AbsenceController() {
+        
+    }
+    public void listeGraphe() {
+        abs = ejbFacade.listes();
+      
+    }
+    public void createBarModel() {
+        
+        ChartData data = new ChartData();
+
+       barModel = new BarChartModel();
+
+        BarChartDataSet barDataSet = new BarChartDataSet();
+        barDataSet.setLabel("Nombre d absence par motif");
+
+        abs = ejbFacade.listes();
+        
+        System.out.println(""+abs);
+        List<Number> values = new ArrayList<>();
+        for (int i=0;i<abs.size();i++) {
+            values.add(abs.get(i).getNbrOccurence());
+        }
+        barDataSet.setData(values);
+
+
+        data.addChartDataSet(barDataSet);
+
+       List<String> labels = new ArrayList<>();
+        for (int i=0;i<abs.size();i++) {
+            labels.add(abs.get(i).getTypeAbsence().toString());
+        }
+        data.setLabels(labels);
+        //Data
+        barModel.setData(data);
+
+        //Options
+        BarChartOptions options = new BarChartOptions();
+        CartesianScales cScales = new CartesianScales();
+        CartesianLinearAxes linearAxes = new CartesianLinearAxes();
+        CartesianLinearTicks ticks = new CartesianLinearTicks();
+        ticks.setBeginAtZero(true);
+        linearAxes.setTicks(ticks);
+        cScales.addYAxesData(linearAxes);
+        options.setScales(cScales);
+
+        Title title = new Title();
+        title.setDisplay(true);
+        title.setText("Bar Chart");
+        options.setTitle(title);
+
+        Legend legend = new Legend();
+        legend.setDisplay(true);
+        legend.setPosition("top");
+        LegendLabel legendLabels = new LegendLabel();
+        legendLabels.setFontStyle("bold");
+        legendLabels.setFontColor("#2980B9");
+        legendLabels.setFontSize(24);
+        legend.setLabels(legendLabels);
+        options.setLegend(legend);
+
+        barModel.setOptions(options);
+    }
+
+    public BarChartModel getBarModel() {
+        if(barModel==null){
+        createBarModel();}
+        return barModel;
+    }
+
+    public void setBarModel(BarChartModel barModel) {
+        this.barModel = barModel;
     }
 
     public void search() {
         items = ejbFacade.search(searchabsence, null, null, null);
+      
+    }
+//    public void searchGraphe() {
+//        abs = ejbFacade.listes1(searchabsenceGraphe.getDateDebut(),searchabsenceGraphe.getDateDebut());
+//      
+//      
+//    }
+
+    //public void generatePDF() throws JRException, IOException {
+    //      ejbFacade.generatePdf();
+    //        FacesContext.getCurrentInstance().responseComplete();
+    //        
+    //    }
+    public List<AbsenceChefVo> getAbs() {
+        if(abs==null)
+            abs=ejbFacade.listes();
+        return abs;
+    }
+
+    public void setAbs(List<AbsenceChefVo> abs) {
+        this.abs = abs;
     }
 
     public Absence getSearchabsence() {
@@ -42,6 +149,20 @@ public class AbsenceController implements Serializable {
     public void setSearchabsence(Absence searchabsence) {
         this.searchabsence = searchabsence;
     }
+
+    public AbsenceChefVo getSearchabsenceGraphe() {
+        
+        return searchabsenceGraphe;
+    }
+
+    public void setSearchabsenceGraphe(AbsenceChefVo searchabsenceGraphe) {
+        this.searchabsenceGraphe = searchabsenceGraphe;
+    }
+
+   
+
+    
+    
 
     public Absence getSelected() {
         if (selected == null) {
@@ -134,6 +255,10 @@ public class AbsenceController implements Serializable {
 
     public List<Absence> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    private List<AbsenceChefVo> searchabsenceGraphe() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @FacesConverter(forClass = Absence.class)

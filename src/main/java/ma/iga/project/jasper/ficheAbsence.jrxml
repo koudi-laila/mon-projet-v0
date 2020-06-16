@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c9cd48ca-57ac-4195-a4f3-1811d845adf4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="144"/>
+	<parameter name="dateDebut" class="java.lang.String"/>
+	<parameter name="dateFin" class="java.lang.String"/>
+	<parameter name="matricule" class="java.lang.String"/>
+	<field name="minuteAbsence" class="java.lang.Long"/>
+	<field name="typeAbsence" class="java.lang.String"/>
+	<field name="personne" class="java.lang.String"/>
+	<field name="dateDebut" class="java.sql.Timestamp"/>
+	<field name="dateFin" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="115" splitType="Stretch">
+			<textField>
+				<reportElement uuid="f8137c46-74a5-44ae-9bb1-0b716255014c" x="222" y="44" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{dateDebut}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="263c9221-3c15-4234-bb0f-84e40b9a79b2" x="222" y="78" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{dateFin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="45d9ad5e-a676-433d-b145-25aa9d7f9d60" x="222" y="10" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{matricule}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b93bcfda-35c6-4083-994c-4219da7bc0c8" x="32" y="10" width="154" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Matricule               :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b93bcfda-35c6-4083-994c-4219da7bc0c8" x="32" y="78" width="154" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Date fin                  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b93bcfda-35c6-4083-994c-4219da7bc0c8" x="32" y="44" width="154" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Date debut            :]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c796b06e-37ed-42cb-a4bb-fa359c3ca1ed" x="0" y="0" width="111" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[personne]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b93bcfda-35c6-4083-994c-4219da7bc0c8" x="111" y="0" width="111" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[typeAbsence]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9b4b0d14-acc2-4abe-8262-73dbbca1906f" x="222" y="0" width="111" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[minuteAbsence]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5d4359d6-0c55-4240-8b72-04a6513d782c" x="333" y="0" width="111" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[dateDebut]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="352c06be-9804-4985-acbe-2d638bf6d7b9" x="444" y="0" width="111" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[dateFin]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement uuid="3b6043a2-843d-4c59-b710-d225aa04fa37" x="0" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{personne}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c765597a-d78c-4d02-b543-947a219445d3" x="111" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{typeAbsence}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="96a232ec-1608-421d-928e-14ed186c10ce" x="222" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{minuteAbsence}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4ed81394-fdb1-49fd-89cf-54c8a2cfed67" x="333" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dateDebut}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="baf21541-493f-485d-88bd-02d5946e4478" x="444" y="0" width="111" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dateFin}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

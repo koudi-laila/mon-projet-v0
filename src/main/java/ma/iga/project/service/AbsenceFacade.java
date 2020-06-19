@@ -32,20 +32,20 @@ public class AbsenceFacade extends AbstractFacade<Absence> {
 //         PdfUtil.generatePdf(findAll(), params, "Fiche absences", "/ma/iga/project/jasper/ficheAbsence.jasper");
 //    }
     public List<AbsenceChefVo> listes() {
-        Query q = em.createQuery("SELECT new ma.iga.project.vo.AbsenceChefVo(a.personne.sectionTravail.chef,a.typeAbsence,COUNT(a.id)) "
+        Query q = em.createQuery("SELECT new ma.iga.project.vo.AbsenceChefVo(a.personne,a.typeAbsence,COUNT(a.id)) "
                 + "FROM Absence a GROUP BY a.typeAbsence");
         
         List<AbsenceChefVo> lst = q.getResultList();
         return lst;
     }
-    public List<AbsenceChefVo> listes1(Date dateDebut,Date dateFin) {
-        Query q = em.createQuery("SELECT new ma.iga.project.vo.AbsenceChefVo(a.personne.sectionTravail.chef,a.typeAbsence,COUNT(a.id)) "
-                + "FROM Absence a where a.dateDubut="+dateDebut+" and a.dateFin="+dateFin+" GROUP BY a.typeAbsence ");
+    public List<AbsenceChefVo> listes1() {
+        Query q = em.createQuery("SELECT new ma.iga.project.vo.AbsenceChefVo(a.personne ,a.typeAbsence ,COUNT(a.id)) "
+                + "FROM Absence a GROUP BY a.personne.sectionTravail.libelle");
         
         List<AbsenceChefVo> lst = q.getResultList();
-        System.out.println(""+lst);
         return lst;
     }
+   
 
     public List<Absence> search(Absence absence, Date dateDebut, Date dateFin,
             String description) {

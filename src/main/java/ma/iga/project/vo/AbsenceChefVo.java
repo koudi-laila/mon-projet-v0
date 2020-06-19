@@ -17,9 +17,6 @@ public class AbsenceChefVo {
     private Personne chef;
     private TypeAbsence typeAbsence;
     private Long nbrOccurence;
-    private Date dateDebut;
-    private Date dateFin;
-
     
     public AbsenceChefVo() {
     }
@@ -30,13 +27,7 @@ public class AbsenceChefVo {
         this.nbrOccurence = nbrOccurence;
     }
 
-    public AbsenceChefVo(Personne chef, TypeAbsence typeAbsence, Long nbrOccurence, Date dateDebut, Date dateFin) {
-        this.chef = chef;
-        this.typeAbsence = typeAbsence;
-        this.nbrOccurence = nbrOccurence;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
-    }
+    
 
     public Personne getChef() {
         return chef;
@@ -62,26 +53,10 @@ public class AbsenceChefVo {
         this.typeAbsence = typeAbsence;
     }
 
-    public Date getDateDebut() {
-        return dateDebut;
-    }
-
-    public void setDateDebut(Date dateDebut) {
-        this.dateDebut = dateDebut;
-    }
-
-    public Date getDateFin() {
-        return dateFin;
-    }
-
-    public void setDateFin(Date dateFin) {
-        this.dateFin = dateFin;
-    }
-
-    
+     
     @Override
     public String toString() {
-        return "AbsenceChefVo{" + "chef=" + chef.getMatricule() + ", motifAbsence=" + typeAbsence.getLibelle() + ", nbrOccurence=" + nbrOccurence + '}';
+        return "AbsenceChefVo{" + "chef=" + chef.getMatricule() + ", typeAbsence=" + typeAbsence.getLibelle()+ ", nbrOccurence=" + nbrOccurence + '}';
     }
     
     

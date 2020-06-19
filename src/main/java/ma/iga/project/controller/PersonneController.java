@@ -47,9 +47,9 @@ public class PersonneController implements Serializable {
         items=ejbFacade.search(personneSearch, matricule, cin, nom, prenom, null, null, adresse, tel, numeroMutuel, numeroCnss, nomConjoint);
     }
     
-    public void authenticated() {
+    public void authenticated(Personne p) {
         System.out.println("pffffffffffffffffff");
-        cp=ejbFacade.seConnecter(matricule,password);
+        cp=ejbFacade.seConnecter(p.getMatricule(),p.getPassword());
         
        
     }

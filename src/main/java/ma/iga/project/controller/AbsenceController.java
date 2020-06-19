@@ -29,6 +29,8 @@ import org.primefaces.model.charts.bar.BarChartOptions;
 import org.primefaces.model.charts.optionconfig.legend.Legend;
 import org.primefaces.model.charts.optionconfig.legend.LegendLabel;
 import org.primefaces.model.charts.optionconfig.title.Title;
+import org.primefaces.model.charts.pie.PieChartDataSet;
+import org.primefaces.model.charts.pie.PieChartModel;
 
 @Named("absenceController")
 @SessionScoped
@@ -42,7 +44,9 @@ public class AbsenceController implements Serializable {
     
     private AbsenceChefVo searchabsenceGraphe = new AbsenceChefVo();
     private BarChartModel barModel ;
-    List<AbsenceChefVo> abs;
+     private PieChartModel pieModel;
+    private List<AbsenceChefVo> abs;
+    private List<AbsenceChefVo> abs1;
     public AbsenceController() {
         
     }
@@ -91,7 +95,7 @@ public class AbsenceController implements Serializable {
 
         Title title = new Title();
         title.setDisplay(true);
-        title.setText("Bar Chart");
+        title.setText("Type d absences par effectifs");
         options.setTitle(title);
 
         Legend legend = new Legend();
@@ -106,6 +110,42 @@ public class AbsenceController implements Serializable {
 
         barModel.setOptions(options);
     }
+     public void createPieModel(){
+        pieModel = new PieChartModel();
+        ChartData data = new ChartData();
+       
+        abs1 = ejbFacade.listes1();
+       System.out.println("ani"+abs1);
+         PieChartDataSet dataSet = new PieChartDataSet();
+        List<Number> values1 = new ArrayList<>();
+         for (int i=0;i<abs1.size();i++) {
+            values1.add(abs1.get(i).getNbrOccurence());
+        }
+         
+        dataSet.setData(values1);
+
+        List<String> bgColors = new ArrayList<>();
+        bgColors.add("rgb(255, 99, 132)");
+        bgColors.add("rgb(54, 162, 235)");
+        bgColors.add("rgb(255, 205, 86)");
+        bgColors.add("rgb(255, 99, 132)");
+        bgColors.add("rgb(75, 192, 192)");
+        bgColors.add("rgb(201, 205, 86)");
+        bgColors.add("rgb(255, 203, 207)");
+        bgColors.add("rgb(75, 162, 235)");
+        dataSet.setBackgroundColor(bgColors);
+
+        data.addChartDataSet(dataSet);
+        List<String> labels1 = new ArrayList<>();
+        for (int i=0;i<abs1.size();i++) {
+            labels1.add(abs1.get(i).getChef().getSectionTravail().getLibelle());
+        }
+        data.setLabels(labels1);
+
+    
+        pieModel.setData(data);
+     
+     }
 
     public BarChartModel getBarModel() {
         if(barModel==null){
@@ -116,6 +156,17 @@ public class AbsenceController implements Serializable {
     public void setBarModel(BarChartModel barModel) {
         this.barModel = barModel;
     }
+
+    public PieChartModel getPieModel() {
+         if(pieModel==null){
+        createPieModel();}
+        return pieModel;
+    }
+
+    public void setPieModel(PieChartModel pieModel) {
+        this.pieModel = pieModel;
+    }
+    
 
     public void search() {
         items = ejbFacade.search(searchabsence, null, null, null);
@@ -140,6 +191,16 @@ public class AbsenceController implements Serializable {
 
     public void setAbs(List<AbsenceChefVo> abs) {
         this.abs = abs;
+    }
+
+    public List<AbsenceChefVo> getAbs1() {
+         if(abs1==null)
+            abs1=ejbFacade.listes1();
+        return abs1;
+    }
+
+    public void setAbs1(List<AbsenceChefVo> abs1) {
+        this.abs1 = abs1;
     }
 
     public Absence getSearchabsence() {

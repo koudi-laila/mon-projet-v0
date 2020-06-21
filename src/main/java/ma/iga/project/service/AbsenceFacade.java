@@ -25,7 +25,7 @@ public class AbsenceFacade extends AbstractFacade<Absence> {
     private EntityManager em;
     
     public List<Absence>findByPersonneMatricule(String matricule){
-    List<Absence>absences=em.createQuery("SELECT * FROM absence a WHERE a.personne.matricule='"+matricule+"'").getResultList();
+    List<Absence>absences=findMultiple("personne.matricule", matricule);
     return absences;
     }
     

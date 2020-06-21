@@ -22,16 +22,15 @@ public class RetardFacade extends AbstractFacade<Retard> {
     @PersistenceContext(unitName = "ma.iga_project_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
-    public List<Retard>findByPersonneMatricule(String matricule){
-    List<Retard>retards=em.createQuery("SELECT * FROM retard r WHERE r.personne.matricule='"+matricule+"'").getResultList();
-    return retards;
+    public List<Retard> findByPersonneMatricule(String matricule) {
+        List<Retard> retards = findMultiple("personne.matricule", matricule);
+        return retards;
     }
-    
-    
+
     public List<Retard> search(Retard retard, Float nombreHeureMin, Float nombreHeureMax,
             Date dateRetard) {
         String query = initQuery();
-         query+=addConstraintDate("dateRetard", dateRetard);
+        query += addConstraintDate("dateRetard", dateRetard);
         query += addConstraintLike("description", retard.getDescription());
         if (retard.getPersonne() != null) {
             query += addConstraint("personne.matricule", retard.getPersonne().getMatricule());

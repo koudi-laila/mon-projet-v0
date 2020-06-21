@@ -77,6 +77,7 @@
                             <p:calendar id="dateNaissanceMin" pattern="dd/MM/yyyy" value="#{personneController.dateNaissanceMin}"   showOn="button"/>
 
                             <p:commandButton actionListener="#{personneController.search()}" value="Search" update=":PersonneListForm:datalist" />
+                            
                             <p:commandButton value="Export as Excel" ajax="false">
                                 <p:dataExporter type="xls" target=":PersonneListForm:datalist" fileName="Fichier Personne"/>
                             </p:commandButton>
@@ -175,7 +176,9 @@
                             </f:facet>
                             <h:outputText value="#{item.profession.libelle}"/>
                         </p:column>
-                        <p:commandButton  icon="ui-icon-plus"  actionListener="#{personneController.findByPersonneMatricule(item.matricule)}" update=":PersonneListForm:datalist"/>
+                        <p:column>
+                            <p:commandButton  icon="ui-icon-plus"  actionListener="#{personneController.findByPersonneMatricule(item.matricule)}" update=":PersonneListForm:datalist1,:PersonneListForm:datalist2"/>
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{personneController.prepareCreate}" update=":PersonneCreateForm" oncomplete="PF('PersonneCreateDialog').show()"/>
                             <p:commandButton id="exportButton"   icon="ui-icon-pdf" value="Export" action="#{personneController.generatePDF()}" ajax="false"/>
@@ -186,7 +189,7 @@
                     </p:dataTable>
                 </p:panel>
                 <p:panel header="#{bundle.ListAbsenceTitle}">
-                    <p:dataTable id="datalist" value="#{personneController.absences}" var="item"
+                    <p:dataTable id="datalist1" value="#{personneController.absences}" var="item"
                                  selectionMode="single" selection="#{absenceController.selected}"
                                  paginator="true"
                                  rowKey="#{item.id}"
@@ -194,8 +197,6 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAbsenceTitle_personne}"/>
@@ -249,17 +250,14 @@
                 </p:panel>
 
                 <p:panel header="#{bundle.ListRetardTitle}">
-                    <p:dataTable id="datalist" value="#{personneController.retards}" var="item"
+                    <p:dataTable id="datalist2" value="#{personneController.retards}" var="item"
                                  selectionMode="single" selection="#{retardController.selected}"
                                  paginator="true"
                                  rowKey="#{item.id}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+                      <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRetardTitle_personne}"/>
                             </f:facet>

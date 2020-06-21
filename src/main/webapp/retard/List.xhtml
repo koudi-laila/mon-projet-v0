@@ -39,19 +39,24 @@
                             <p:outputLabel value="#{bundle.CreateRetardLabel_description}" for="description" />
                             <p:inputText id="description" value="#{retardController.retardSearch.description}" title="#{bundle.CreateRetardTitle_description}" />
 
-                            <p:outputLabel value="#{bundle.CreateRetardLabel_nombreHeure}Min" for="nombreHeureMin" />
-                            <p:inputText id="nombreHeureMin" value="#{retardController.nombreHeureMin}" title="#{bundle.CreateRetardTitle_nombreHeure}Min" />
+                            <p:outputLabel value="Nonbre Heure Min" for="nombreHeureMin" />
+                            <p:inputText id="nombreHeureMin" value="#{retardController.nombreHeureMin}" title="Min" />
 
-                            <p:outputLabel value="#{bundle.CreateRetardLabel_nombreHeure}Max" for="nombreHeureMax" />
-                            <p:inputText id="nombreHeureMax" value="#{retardController.nombreHeureMax}" title="#{bundle.CreateRetardTitle_nombreHeure}Max" />
+                            <p:outputLabel value="Nombre Heure Max" for="nombreHeureMax" />
+                            <p:inputText id="nombreHeureMax" value="#{retardController.nombreHeureMax}" title="Max" />
+
+
+                            <p:outputLabel value="#{bundle.CreateRetardLabel_dateRetard}" for="dateRetard" />
+
+                            <p:calendar id="dateRetard" pattern="dd/MM/yyyy HH:mm:ss" value="#{retardController.dateDebut}" title="#{bundle.EditRetardTitle_dateRetard}"  showOn="button"/>
 
                             <p:commandButton actionListener="#{retardController.search()}" value="Search" update=":RetardListForm:datalist" />
-
+                            <p:commandButton value="Export as Excel" ajax="false">
+                                <p:dataExporter type="xls" target=":RetardListForm:datalist" fileName="Fichier Retard"/>
+                            </p:commandButton>
                         </p:panelGrid>
                     </h:panelGroup>
                 </p:panel>
-
-
                 <p:panel header="#{bundle.ListRetardTitle}">
                     <p:dataTable id="datalist" value="#{retardController.items}" var="item"
                                  selectionMode="single" selection="#{retardController.selected}"
@@ -60,7 +65,6 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 

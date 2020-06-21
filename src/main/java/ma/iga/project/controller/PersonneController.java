@@ -7,6 +7,7 @@ import ma.iga.project.service.PersonneFacade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,6 +20,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import ma.iga.project.bean.Absence;
+import ma.iga.project.bean.Retard;
 
 @Named("personneController")
 @SessionScoped
@@ -26,32 +29,33 @@ public class PersonneController implements Serializable {
 
     @EJB
     private ma.iga.project.service.PersonneFacade ejbFacade;
+    @EJB
+    private ma.iga.project.service.AbsenceFacade ejbAbsence;
+    @EJB
+    private ma.iga.project.service.RetardFacade ejbRetard;
+    
+    private List<Absence>absences=new ArrayList<>();
+     private List<Retard>retards=new ArrayList<>();
+     private List<Personne>personnes=new ArrayList<>();
+    
     private List<Personne> items = null;
     private Personne selected;
    
     private Personne personneSearch = new Personne();
-    private String matricule;
-    private String cin;
-    private String nom;
-    private String prenom;
-    private String adresse;
-    private String tel;
-    private String numeroMutuel;
-    private String numeroCnss;
-    private String nomConjoint;
-    private String password;
+    private Date dateEmbaucheMin;
+    private Date dateEmbaucheMax;
+    private Date dateNaissanceMin;
+    private Date dateNaissanceMax;
     private  int cp;
   
 
-    public void search() {
-        items=ejbFacade.search(personneSearch, matricule, cin, nom, prenom, null, null, adresse, tel, numeroMutuel, numeroCnss, nomConjoint);
+    public void search(){
+        items=ejbFacade.search(personneSearch,dateEmbaucheMax,dateEmbaucheMin,dateNaissanceMax,dateNaissanceMin);
     }
     
-    public void authenticated(Personne p) {
-        System.out.println("pffffffffffffffffff");
-        cp=ejbFacade.seConnecter(p.getMatricule(),p.getPassword());
-        
-       
+    public void findByPersonneMatricule(String matricule){
+        absences=ejbAbsence.findByPersonneMatricule(matricule);
+        retards=ejbRetard.findByPersonneMatricule(matricule);
     }
     public PersonneController() {
     }
@@ -76,14 +80,7 @@ public class PersonneController implements Serializable {
         this.personneSearch = personneSearch;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+    
     public int getCp() {
         return cp;
     }
@@ -92,81 +89,56 @@ public class PersonneController implements Serializable {
         this.cp = cp;
     }
 
+    public Date getDateEmbaucheMin() {
+        return dateEmbaucheMin;
+    }
+
+    public void setDateEmbaucheMin(Date dateEmbaucheMin) {
+        this.dateEmbaucheMin = dateEmbaucheMin;
+    }
+
+    public Date getDateEmbaucheMax() {
+        return dateEmbaucheMax;
+    }
+
+    public void setDateEmbaucheMax(Date dateEmbaucheMax) {
+        this.dateEmbaucheMax = dateEmbaucheMax;
+    }
+
+    public Date getDateNaissanceMin() {
+        return dateNaissanceMin;
+    }
+
+    public void setDateNaissanceMin(Date dateNaissanceMin) {
+        this.dateNaissanceMin = dateNaissanceMin;
+    }
+
+    public Date getDateNaissanceMax() {
+        return dateNaissanceMax;
+    }
+
+    public void setDateNaissanceMax(Date dateNaissanceMax) {
+        this.dateNaissanceMax = dateNaissanceMax;
+    }
+
+    public List<Absence> getAbsences() {
+        return absences;
+    }
+
+    public void setAbsences(List<Absence> absences) {
+        this.absences = absences;
+    }
+
+    public List<Retard> getRetards() {
+        return retards;
+    }
+
+    public void setRetards(List<Retard> retards) {
+        this.retards = retards;
+    }
+
     
-
     
-    public String getMatricule() {
-        return matricule;
-    }
-
-    public void setMatricule(String matricule) {
-        this.matricule = matricule;
-    }
-
-    public String getCin() {
-        return cin;
-    }
-
-    public void setCin(String cin) {
-        this.cin = cin;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    public String getNumeroMutuel() {
-        return numeroMutuel;
-    }
-
-    public void setNumeroMutuel(String numeroMutuel) {
-        this.numeroMutuel = numeroMutuel;
-    }
-
-    public String getNumeroCnss() {
-        return numeroCnss;
-    }
-
-    public void setNumeroCnss(String numeroCnss) {
-        this.numeroCnss = numeroCnss;
-    }
-
-    public String getNomConjoint() {
-        return nomConjoint;
-    }
-
-    public void setNomConjoint(String nomConjoint) {
-        this.nomConjoint = nomConjoint;
-    }
-
     protected void setEmbeddableKeys() {
     }
 

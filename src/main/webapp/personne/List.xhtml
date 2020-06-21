@@ -26,10 +26,6 @@
                             <p:inputText id="nom" value="#{personneController.personneSearch.nom}" title="#{bundle.CreatePersonneTitle_nom}" />
                             <p:outputLabel value="#{bundle.CreatePersonneLabel_prenom}" for="prenom" />
                             <p:inputText id="prenom" value="#{personneController.personneSearch.prenom}" title="#{bundle.CreatePersonneTitle_prenom}" />
-                            <p:outputLabel value="#{bundle.CreatePersonneLabel_dateNaissance}" for="dateNaissance" />
-                            <p:calendar id="dateNaissance" pattern="dd/MM/yyyy" value="#{personneController.personneSearch.dateNaissance}" title="#{bundle.EditPersonneTitle_dateNaissance}"  showOn="button"/>
-                            <p:outputLabel value="#{bundle.CreatePersonneLabel_dateEmbauche}" for="dateEmbauche" />
-                            <p:calendar id="dateEmbauche" pattern="dd/MM/yyyy" value="#{personneController.personneSearch.dateEmbauche}" title="#{bundle.EditPersonneTitle_dateEmbauche}"  showOn="button"/>
                             <p:outputLabel value="#{bundle.CreatePersonneLabel_adresse}" for="adresse" />
                             <p:inputText id="adresse" value="#{personneController.personneSearch.adresse}" title="#{bundle.CreatePersonneTitle_adresse}" />
                             <p:outputLabel value="#{bundle.CreatePersonneLabel_tel}" for="tel" />
@@ -40,7 +36,7 @@
                             <p:inputText id="numeroCnss" value="#{personneController.personneSearch.numeroCnss}" title="#{bundle.CreatePersonneTitle_numeroCnss}" />
                             <p:outputLabel value="#{bundle.CreatePersonneLabel_situationFamilliale}" for="situationFamilliale" />
                             <p:selectOneMenu id="situationFamilliale" value="#{personneController.personneSearch.situationFamilliale}" >
-                               <f:selectItem itemValue="#{null}" itemLabel="--SELECT--"/>
+                                <f:selectItem itemValue="#{null}" itemLabel="--SELECT--"/>
                                 <f:selectItems value="#{situationFamillialeController.itemsAvailableSelectOne}"
                                                var="situationFamillialeItem"
                                                itemValue="#{situationFamillialeItem}"/>
@@ -58,7 +54,7 @@
                             </p:selectOneMenu>
                             <p:outputLabel value="#{bundle.CreatePersonneLabel_sectionTravail}" for="sectionTravail" />
                             <p:selectOneMenu id="sectionTravail" value="#{personneController.personneSearch.sectionTravail}" >
-                               <f:selectItem itemValue="#{null}" itemLabel="--SELECT--"/>
+                                <f:selectItem itemValue="#{null}" itemLabel="--SELECT--"/>
                                 <f:selectItems value="#{sectionTravailController.itemsAvailableSelectOne}"
                                                var="sectionTravailItem"
                                                itemValue="#{sectionTravailItem}"/>
@@ -70,7 +66,20 @@
                                                var="professionItem"
                                                itemValue="#{professionItem}"/>
                             </p:selectOneMenu>
+                            <p:outputLabel value="Date Embauche Max" for="dateEmbaucheMax" />
+                            <p:calendar id="dateEmbaucheMax" pattern="dd/MM/yyyy" value="#{personneController.dateEmbaucheMax}"   showOn="button"/>
+                            <p:outputLabel value="Date Embauche Min" for="dateEmbaucheMin" />
+                            <p:calendar id="dateEmbaucheMin" pattern="dd/MM/yyyy" value="#{personneController.dateEmbaucheMin}"   showOn="button"/>
+
+                            <p:outputLabel value="Date Naissance Max" for="dateNaissanceMax" />
+                            <p:calendar id="dateNaissanceMax" pattern="dd/MM/yyyy" value="#{personneController.dateNaissanceMax}"   showOn="button"/>
+                            <p:outputLabel value="Date Naissance Min" for="dateNaissanceMin" />
+                            <p:calendar id="dateNaissanceMin" pattern="dd/MM/yyyy" value="#{personneController.dateNaissanceMin}"   showOn="button"/>
+
                             <p:commandButton actionListener="#{personneController.search()}" value="Search" update=":PersonneListForm:datalist" />
+                            <p:commandButton value="Export as Excel" ajax="false">
+                                <p:dataExporter type="xls" target=":PersonneListForm:datalist" fileName="Fichier Personne"/>
+                            </p:commandButton>
                         </p:panelGrid>
                     </h:panelGroup>
 
@@ -145,7 +154,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonneTitle_situationFamilliale}"/>
                             </f:facet>
-                            <h:outputText value="#{item.situationFamilliale}"/>
+                            <h:outputText value="#{item.situationFamilliale.libelle}"/>
                         </p:column>
 
                         <p:column>
@@ -166,6 +175,7 @@
                             </f:facet>
                             <h:outputText value="#{item.profession.libelle}"/>
                         </p:column>
+                        <p:commandButton  icon="ui-icon-plus"  actionListener="#{personneController.findByPersonneMatricule(item.matricule)}" update=":PersonneListForm:datalist"/>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{personneController.prepareCreate}" update=":PersonneCreateForm" oncomplete="PF('PersonneCreateDialog').show()"/>
                             <p:commandButton id="exportButton"   icon="ui-icon-pdf" value="Export" action="#{personneController.generatePDF()}" ajax="false"/>
@@ -175,6 +185,115 @@
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
+                <p:panel header="#{bundle.ListAbsenceTitle}">
+                    <p:dataTable id="datalist" value="#{personneController.absences}" var="item"
+                                 selectionMode="single" selection="#{absenceController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAbsenceTitle_personne}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.personne.matricule}"/>
+
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAbsenceTitle_typeAbsence}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.typeAbsence.libelle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAbsenceTitle_motifAbsence}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motifAbsence.libelle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAbsenceTitle_description}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAbsenceTitle_minuteAbsence}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.minuteAbsence}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAbsenceTitle_dateDebut}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateDebut}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAbsenceTitle_dateFin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateFin}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+
+                <p:panel header="#{bundle.ListRetardTitle}">
+                    <p:dataTable id="datalist" value="#{personneController.retards}" var="item"
+                                 selectionMode="single" selection="#{retardController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetardTitle_personne}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.personne.matricule}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetardTitle_motifRetard}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motifRetard.libelle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetardTitle_description}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.description}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetardTitle_nombreHeure}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombreHeure}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListRetardTitle_dateRetard}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateRetard}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+
             </h:form>
 
             <ui:include src="Create.xhtml"/>

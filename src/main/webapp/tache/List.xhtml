@@ -35,6 +35,9 @@
                         <p:outputLabel value="#{bundle.CreateTacheLabel_note}" for="note" />
                         <p:inputText id="note" value="#{tacheController.searchtache.note}" title="#{bundle.CreateTacheTitle_note}" />
                          <p:commandButton actionListener="#{tacheController.search()}" value="Search" update=":TacheListForm:datalist" />
+                    <p:commandButton value="Export as Excel" ajax="false">
+                                <p:dataExporter type="xls" target=":TacheListForm:datalist" fileName="Fichier Taches"/>
+                            </p:commandButton>
                     </p:panelGrid>
                 </h:panelGroup>
                 <p:panel header="#{bundle.ListTacheTitle}">

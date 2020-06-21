@@ -5,7 +5,9 @@
  */
 package ma.iga.project.service;
 
+import java.util.Date;
 import java.util.List;
+import ma.iga.project.service.util.DateUtil;
 import javax.persistence.EntityManager;
 
 /**
@@ -19,6 +21,7 @@ public abstract class AbstractFacade<T> {
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
+
     public String initQuery(String item) {
         return "SELECT  " + item + " FROM " + entityClass.getSimpleName() + " " + item + " WHERE 1=1";
     }
@@ -64,18 +67,57 @@ public abstract class AbstractFacade<T> {
         return result;
     }
 
-    
-
-    public String addConstraint(String item, String key, String value, String operator) {
-        if (value != null && !value.isEmpty()) {
-            String compare = "= '" + value + "'";
-            if (operator.equals("LIKE")) {
-                compare = " LIKE '%" + value + "%'";
-            }
-            return " AND " + item + "." + key + compare;
-        } else {
-            return "";
+    public String addConstraint(String item, String key, Object value, String operator) {
+        boolean condition = value != null;
+        if (value != null && value.getClass().getSimpleName().equals("String")) {
+            condition = condition && !value.equals("");
         }
+        if (condition && !key.equals("")) {
+            return " AND " + item + "." + key + " " + operator + " '" + value + "'";
+        }
+        return "";
+    }
+
+    public static String addConstraintMinMax(String beanAbrev, String atributeName, Object valueMin, Object valueMax) {
+        String requette = "";
+        if (valueMin != null) {
+            requette += " AND " + beanAbrev + "." + atributeName + " >= '" + valueMin + "'";
+        }
+        if (valueMax != null) {
+            requette += " AND " + beanAbrev + "." + atributeName + " <= '" + valueMax + "'";
+        }
+        return requette;
+    }
+
+    public String addConstraint(String beanAbrev, String atributeName, String operator, Date value) {
+        return addConstraint(beanAbrev, atributeName, DateUtil.convertFormUtilToSql(value), operator);
+    }
+
+    public String addConstraintMinMaxDate(String beanAbrev, String atributeName, Date valueMin, Date valueMax) {
+        return addConstraintMinMax(beanAbrev, atributeName, DateUtil.convertFormUtilToSql(valueMin), DateUtil.convertFormUtilToSql(valueMax));
+    }
+
+    public static String addConstraintMinMax(String atributeName, Object valueMin, Object valueMax) {
+        String requette = "";
+        String beanAbrev = "item";
+        if (valueMin != null) {
+            requette += " AND " + beanAbrev + "." + atributeName + " >= '" + valueMin + "'";
+        }
+        if (valueMax != null) {
+            requette += " AND " + beanAbrev + "." + atributeName + " <= '" + valueMax + "'";
+        }
+        return requette;
+    }
+
+    public String addConstraintDate(String atributeName, Date value) {
+        String beanAbrev = "item";
+        String operator = " = ";
+        return addConstraint(beanAbrev, atributeName, DateUtil.convertFormUtilToSql(value), operator);
+    }
+
+    public String addConstraintMinMaxDate(String atributeName, Date valueMin, Date valueMax) {
+        String beanAbrev = "item";
+        return addConstraintMinMax(beanAbrev, atributeName, DateUtil.convertFormUtilToSql(valueMin), DateUtil.convertFormUtilToSql(valueMax));
     }
 
     public String addConstraint(String key, String value) {

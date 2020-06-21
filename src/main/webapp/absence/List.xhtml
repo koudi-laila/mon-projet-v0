@@ -44,15 +44,20 @@
 
                             <p:outputLabel value="#{bundle.CreateAbsenceLabel_minuteAbsence}" for="minuteAbsence" />
                             <p:inputText id="minuteAbsence" value="#{absenceController.searchabsence.minuteAbsence}" title="#{bundle.CreateAbsenceTitle_minuteAbsence}" />
+                            
                             <p:outputLabel value="#{bundle.CreateAbsenceLabel_dateDebut}" for="dateDebut" />
-                            <p:calendar id="dateDebut" pattern="dd/MM/yyyy HH:mm:ss" value="#{absenceController.searchabsence.dateDebut}" title="#{bundle.EditAbsenceTitle_dateDebut}"  showOn="button"/>
-                            <p:outputLabel value="#{bundle.CreateAbsenceLabel_dateFin}" for="dateFin" />
-                            <p:calendar id="dateFin" pattern="dd/MM/yyyy HH:mm:ss" value="#{absenceController.selected.dateFin}" title="#{bundle.EditAbsenceTitle_dateFin}"  showOn="button"/>
-
+                            <p:calendar id="dateDebut" pattern="dd/MM/yyyy HH:mm:ss" value="#{absenceController.dateDebut}" title="#{bundle.EditAbsenceTitle_dateDebut}"  showOn="button"/>
+                        
                             <p:commandButton actionListener="#{absenceController.search()}" value="Search" update=":AbsenceListForm:datalist" />
+
+                            <p:commandButton value="Export as Excel" ajax="false">
+                                <p:dataExporter type="xls" target=":AbsenceListForm:datalist" fileName="Fichier Absence"/>
+                            </p:commandButton>
 
                         </p:panelGrid>
                     </h:panelGroup>
+
+
                 </p:panel>
                 <p:panel header="#{bundle.ListAbsenceTitle}">
                     <p:dataTable id="datalist" value="#{absenceController.items}" var="item"
@@ -103,7 +108,7 @@
                                 <h:outputText value="#{bundle.ListAbsenceTitle_dateDebut}"/>
                             </f:facet>
                             <h:outputText value="#{item.dateDebut}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                             </h:outputText>
                         </p:column>
                         <p:column>
@@ -111,7 +116,7 @@
                                 <h:outputText value="#{bundle.ListAbsenceTitle_dateFin}"/>
                             </f:facet>
                             <h:outputText value="#{item.dateFin}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                             </h:outputText>
                         </p:column>
 

@@ -5,6 +5,7 @@ import ma.iga.project.service.AbsenceFacade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -40,18 +41,19 @@ public class AbsenceController implements Serializable {
     private AbsenceFacade ejbFacade;
     private List<Absence> items = null;
     private Absence selected;
-    private Absence searchabsence = new Absence();
+    private Absence searchabsence;
     
     private AbsenceChefVo searchabsenceGraphe = new AbsenceChefVo();
     private BarChartModel barModel ;
      private PieChartModel pieModel;
     private List<AbsenceChefVo> abs;
     private List<AbsenceChefVo> abs1;
+    private Date dateDebut;
     public AbsenceController() {
         
     }
     public void listeGraphe() {
-        abs = ejbFacade.listes();
+        abs = ejbFacade.findAbsenceGroupeByTypeAbsence();
       
     }
     public void createBarModel() {
@@ -63,7 +65,7 @@ public class AbsenceController implements Serializable {
         BarChartDataSet barDataSet = new BarChartDataSet();
         barDataSet.setLabel("Nombre d absence par motif");
 
-        abs = ejbFacade.listes();
+        abs = ejbFacade.findAbsenceGroupeByTypeAbsence();
         
         System.out.println(""+abs);
         List<Number> values = new ArrayList<>();
@@ -114,7 +116,7 @@ public class AbsenceController implements Serializable {
         pieModel = new PieChartModel();
         ChartData data = new ChartData();
        
-        abs1 = ejbFacade.listes1();
+        abs1 = ejbFacade.findAbsenceGroupeBySectionTravail();
        System.out.println("ani"+abs1);
          PieChartDataSet dataSet = new PieChartDataSet();
         List<Number> values1 = new ArrayList<>();
@@ -167,16 +169,10 @@ public class AbsenceController implements Serializable {
         this.pieModel = pieModel;
     }
     
-
     public void search() {
-        items = ejbFacade.search(searchabsence, null, null, null);
+        items = ejbFacade.search(searchabsence, dateDebut);
       
     }
-//    public void searchGraphe() {
-//        abs = ejbFacade.listes1(searchabsenceGraphe.getDateDebut(),searchabsenceGraphe.getDateDebut());
-//      
-//      
-//    }
 
     //public void generatePDF() throws JRException, IOException {
     //      ejbFacade.generatePdf();
@@ -185,7 +181,7 @@ public class AbsenceController implements Serializable {
     //    }
     public List<AbsenceChefVo> getAbs() {
         if(abs==null)
-            abs=ejbFacade.listes();
+            abs=ejbFacade.findAbsenceGroupeByTypeAbsence();
         return abs;
     }
 
@@ -195,7 +191,7 @@ public class AbsenceController implements Serializable {
 
     public List<AbsenceChefVo> getAbs1() {
          if(abs1==null)
-            abs1=ejbFacade.listes1();
+            abs1=ejbFacade.findAbsenceGroupeBySectionTravail();
         return abs1;
     }
 
@@ -203,7 +199,11 @@ public class AbsenceController implements Serializable {
         this.abs1 = abs1;
     }
 
+   
+
     public Absence getSearchabsence() {
+        if(searchabsence==null)
+            searchabsence=new Absence();
         return searchabsence;
     }
 
@@ -220,11 +220,15 @@ public class AbsenceController implements Serializable {
         this.searchabsenceGraphe = searchabsenceGraphe;
     }
 
-   
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
 
     
-    
-
     public Absence getSelected() {
         if (selected == null) {
             selected = new Absence();

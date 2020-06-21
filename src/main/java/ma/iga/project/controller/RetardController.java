@@ -33,9 +33,10 @@ public class RetardController implements Serializable {
     private Retard retardSearch = new Retard();
     private Float nombreHeureMin;
     private Float nombreHeureMax;
+    private Date dateDebut;
 
     public void search() {
-        items = ejbFacade.search(retardSearch, nombreHeureMin, nombreHeureMax, null, null);
+        items = ejbFacade.search(retardSearch, null, null, dateDebut);
     }
 
     public RetardController() {
@@ -58,6 +59,14 @@ public class RetardController implements Serializable {
 
     public void setSelected(Retard selected) {
         this.selected = selected;
+    }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
     }
 
     protected void setEmbeddableKeys() {

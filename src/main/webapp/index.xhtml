@@ -2,17 +2,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
-        <h:outputLink value="login.xhtml">login</h:outputLink><br/>
-    <h:outputLink value="logout.xhtml">logout</h:outputLink>
-    
+        <p:growl id="gr" life="3000"/>
+        <h:form>
+            <p:panel header="Se Connecter">
+                <p:outputLabel value="Login" for="matricule" />
+                <p:inputText id="matricule" value="#{personneController.selected.matricule}" title="matricule" />
+                <p:outputLabel value="Mot de Passe" for="password" />
+                <p:inputText type="password" id="password" value="#{personneController.selected.password}" title="password" />
+
+                <p:commandButton actionListener="#{personneController.SeConnecter()}" update=":gr" value="Se Connecter"/>
+            </p:panel>
+        </h:form>
     </h:body>
-
-
 </html>
 

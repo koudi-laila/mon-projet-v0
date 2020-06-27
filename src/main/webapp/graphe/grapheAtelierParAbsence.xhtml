@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head></h:head>
+    <h:body>
+        <h:form id="AbsenceListForm">
+            <p:panel header="Graphe nombre d absence par ateliers dans une date selectionner">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{absenceController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAbsenceLabel_dateDebut}" for="dateDebut" />
+                        <p:calendar id="dateDebut" pattern="dd/MM/yyyy HH:mm:ss" value="#{absenceController.dateDebut}" title="#{bundle.EditAbsenceTitle_dateDebut}"  showOn="button"/>
+
+                        <p:commandButton actionListener="#{absenceController.createPieModel() }" value="Search"  />
+                    </p:panelGrid>
+                    <p:pieChart model="#{absenceController.pieModel}"  style="width:5px;height: 2px"/>
+                </h:panelGroup>
+            </p:panel>
+        </h:form>
+
+    </h:body>
+
+</html>
+

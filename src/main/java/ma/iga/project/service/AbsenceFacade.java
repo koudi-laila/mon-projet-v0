@@ -37,19 +37,20 @@ public class AbsenceFacade extends AbstractFacade<Absence> {
 //        params.put("dateFin","31/12/2020" );
 //         PdfUtil.generatePdf(findAll(), params, "Fiche absences", "/ma/iga/project/jasper/ficheAbsence.jasper");
 //    }
-    public List<AbsenceChefVo> findAbsenceGroupeByTypeAbsence() {
-        String requette = "SELECT new ma.iga.project.vo.AbsenceChefVo(a.personne,a.typeAbsence,COUNT(a.id)) "
-                + "FROM Absence a GROUP BY a.typeAbsence ";
-        requette += "";
+    public List<AbsenceChefVo> findAbsenceGroupeByTypeAbsence(Date dateDebut) {
+        String requette = "SELECT new ma.iga.project.vo.AbsenceChefVo(a.personne,a.typeAbsence,COUNT(a.id),a.dateDebut) "
+                + "FROM Absence a   WHERE 1=1 ";
+        requette += addConstraintDateGraphe("dateDebut", dateDebut)+"GROUP BY a.typeAbsence";
         List<AbsenceChefVo> lst = em.createQuery(requette).getResultList();
+        System.out.println("ma.iga.project.service.AbsenceFacade.findAbsenceGroupeByTypeAbsence()"+lst);
         return lst;
     }
 
-    public List<AbsenceChefVo> findAbsenceGroupeBySectionTravail() {
-        Query q = em.createQuery("SELECT new ma.iga.project.vo.AbsenceChefVo(a.personne ,a.typeAbsence ,COUNT(a.id)) "
-                + "FROM Absence a GROUP BY a.personne.sectionTravail.libelle");
-
-        List<AbsenceChefVo> lst = q.getResultList();
+    public List<AbsenceChefVo> findAbsenceGroupeBySectionTravail(Date dateDebut) {
+        String requette = "SELECT new ma.iga.project.vo.AbsenceChefVo(a.personne,a.typeAbsence,COUNT(a.id),a.dateDebut) "
+                + "FROM Absence a   WHERE 1=1 ";
+        requette += addConstraintDateGraphe("dateDebut", dateDebut)+"GROUP BY a.personne.sectionTravail.libelle";
+        List<AbsenceChefVo> lst = em.createQuery(requette).getResultList();
         return lst;
     }
 

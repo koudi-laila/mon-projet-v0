@@ -1,5 +1,6 @@
 package ma.iga.project.controller;
 
+import java.io.IOException;
 import ma.iga.project.bean.Personne;
 import ma.iga.project.controller.util.JsfUtil;
 import ma.iga.project.controller.util.JsfUtil.PersistAction;
@@ -17,9 +18,12 @@ import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import ma.iga.project.bean.Absence;
 import ma.iga.project.bean.Retard;
 
@@ -36,7 +40,7 @@ public class PersonneController implements Serializable {
     
     private List<Absence>absences=new ArrayList<>();
      private List<Retard>retards=new ArrayList<>();
-     private List<Personne>personnes=new ArrayList<>();
+     private Personne personne;
     
     private List<Personne> items = null;
     private Personne selected;
@@ -48,6 +52,37 @@ public class PersonneController implements Serializable {
     private Date dateNaissanceMax;
     private  int cp;
   
+    public void SeConnecter()throws IOException {
+        personne=getSelected();
+        int res=ejbFacade.seConnecter(personne.getMatricule(),personne.getPassword());
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+        if(res==1){
+            try {
+                JsfUtil.addSuccessMessage("bienvenu");
+                request.login(personne.getMatricule(), personne.getPassword());
+                System.out.println("ma.iga.project.controller.PersonneController.SeConnecter()");
+                externalContext.getSessionMap().put("personne", personne);
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/personne/List");
+            
+            
+            } catch (ServletException ex) {
+                Logger.getLogger(PersonneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if(res==-1){
+            JsfUtil.addErrorMessage("Probleme au niveau du login");
+        }
+        else{
+            JsfUtil.addErrorMessage("Probleme au niveau du mot de passe");
+        }
+    }
+     public void logoutPersonne() throws IOException{
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        externalContext.invalidateSession();
+        externalContext.redirect(externalContext.getRequestContextPath() + "index.xhtml");
+    }
 
     public void search(){
         items=ejbFacade.search(personneSearch,dateEmbaucheMax,dateEmbaucheMin,dateNaissanceMax,dateNaissanceMin);

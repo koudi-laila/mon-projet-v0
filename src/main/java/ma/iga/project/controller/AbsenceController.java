@@ -1,5 +1,6 @@
 package ma.iga.project.controller;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import ma.iga.project.bean.Absence;
 import ma.iga.project.service.AbsenceFacade;
 
@@ -32,6 +33,7 @@ import org.primefaces.model.charts.optionconfig.legend.LegendLabel;
 import org.primefaces.model.charts.optionconfig.title.Title;
 import org.primefaces.model.charts.pie.PieChartDataSet;
 import org.primefaces.model.charts.pie.PieChartModel;
+import org.primefaces.model.charts.pie.PieChartOptions;
 
 @Named("absenceController")
 @SessionScoped
@@ -42,8 +44,6 @@ public class AbsenceController implements Serializable {
     private List<Absence> items = null;
     private Absence selected;
     private Absence searchabsence;
-    
-    private AbsenceChefVo searchabsenceGraphe = new AbsenceChefVo();
     private BarChartModel barModel ;
      private PieChartModel pieModel;
     private List<AbsenceChefVo> abs;
@@ -52,22 +52,14 @@ public class AbsenceController implements Serializable {
     public AbsenceController() {
         
     }
-    public void listeGraphe() {
-        abs = ejbFacade.findAbsenceGroupeByTypeAbsence();
-      
-    }
     public void createBarModel() {
-        
         ChartData data = new ChartData();
 
        barModel = new BarChartModel();
-
         BarChartDataSet barDataSet = new BarChartDataSet();
         barDataSet.setLabel("Nombre d absence par motif");
-
-        abs = ejbFacade.findAbsenceGroupeByTypeAbsence();
-        
-        System.out.println(""+abs);
+         abs=ejbFacade.findAbsenceGroupeByTypeAbsence(dateDebut);
+         System.out.println("bien "+abs);
         List<Number> values = new ArrayList<>();
         for (int i=0;i<abs.size();i++) {
             values.add(abs.get(i).getNbrOccurence());
@@ -97,33 +89,34 @@ public class AbsenceController implements Serializable {
 
         Title title = new Title();
         title.setDisplay(true);
-        title.setText("Type d absences par effectifs");
+        title.setText("Nombre d'absence par type absence");
+        title.setFontColor("#2980B9");
+        title.setFontStyle("bold");
+         title.setFontSize(24);
         options.setTitle(title);
 
         Legend legend = new Legend();
         legend.setDisplay(true);
-        legend.setPosition("top");
+        legend.setPosition("right");
         LegendLabel legendLabels = new LegendLabel();
-        legendLabels.setFontStyle("bold");
         legendLabels.setFontColor("#2980B9");
-        legendLabels.setFontSize(24);
+        legendLabels.setFontSize(12);
         legend.setLabels(legendLabels);
         options.setLegend(legend);
-
         barModel.setOptions(options);
     }
      public void createPieModel(){
+         
         pieModel = new PieChartModel();
         ChartData data = new ChartData();
-       
-        abs1 = ejbFacade.findAbsenceGroupeBySectionTravail();
+        abs1 = ejbFacade.findAbsenceGroupeBySectionTravail(dateDebut);
        System.out.println("ani"+abs1);
+        
          PieChartDataSet dataSet = new PieChartDataSet();
         List<Number> values1 = new ArrayList<>();
          for (int i=0;i<abs1.size();i++) {
             values1.add(abs1.get(i).getNbrOccurence());
         }
-         
         dataSet.setData(values1);
 
         List<String> bgColors = new ArrayList<>();
@@ -136,22 +129,20 @@ public class AbsenceController implements Serializable {
         bgColors.add("rgb(255, 203, 207)");
         bgColors.add("rgb(75, 162, 235)");
         dataSet.setBackgroundColor(bgColors);
-
         data.addChartDataSet(dataSet);
+        
         List<String> labels1 = new ArrayList<>();
         for (int i=0;i<abs1.size();i++) {
             labels1.add(abs1.get(i).getChef().getSectionTravail().getLibelle());
         }
         data.setLabels(labels1);
-
-    
         pieModel.setData(data);
      
      }
 
     public BarChartModel getBarModel() {
-        if(barModel==null){
-        createBarModel();}
+      if(barModel==null)
+        createBarModel();
         return barModel;
     }
 
@@ -173,6 +164,10 @@ public class AbsenceController implements Serializable {
         items = ejbFacade.search(searchabsence, dateDebut);
       
     }
+//     public void searchBarGraphique() {
+//       abs= ejbFacade.findAbsenceGroupeByTypeAbsence(dateDebut);
+//      
+//    }
 
     //public void generatePDF() throws JRException, IOException {
     //      ejbFacade.generatePdf();
@@ -180,8 +175,6 @@ public class AbsenceController implements Serializable {
     //        
     //    }
     public List<AbsenceChefVo> getAbs() {
-        if(abs==null)
-            abs=ejbFacade.findAbsenceGroupeByTypeAbsence();
         return abs;
     }
 
@@ -191,7 +184,7 @@ public class AbsenceController implements Serializable {
 
     public List<AbsenceChefVo> getAbs1() {
          if(abs1==null)
-            abs1=ejbFacade.findAbsenceGroupeBySectionTravail();
+            abs1=ejbFacade.findAbsenceGroupeBySectionTravail(dateDebut);
         return abs1;
     }
 
@@ -205,19 +198,6 @@ public class AbsenceController implements Serializable {
         if(searchabsence==null)
             searchabsence=new Absence();
         return searchabsence;
-    }
-
-    public void setSearchabsence(Absence searchabsence) {
-        this.searchabsence = searchabsence;
-    }
-
-    public AbsenceChefVo getSearchabsenceGraphe() {
-        
-        return searchabsenceGraphe;
-    }
-
-    public void setSearchabsenceGraphe(AbsenceChefVo searchabsenceGraphe) {
-        this.searchabsenceGraphe = searchabsenceGraphe;
     }
 
     public Date getDateDebut() {

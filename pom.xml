@@ -90,12 +90,12 @@
             <artifactId>primefaces</artifactId>
             <version>8.0</version>
         </dependency>
-        <!--        <dependency>
+        <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
             <version>6.4.0</version>
             <type>jar</type>
-        </dependency>-->
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.jfree/jcommon -->
         <dependency>
             <groupId>org.jfree</groupId>

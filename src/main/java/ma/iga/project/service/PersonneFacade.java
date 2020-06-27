@@ -71,10 +71,6 @@ public class PersonneFacade extends AbstractFacade<Personne> {
     }
 
     public int seConnecter(String matricule, String password) {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        ExternalContext ectx = context.getExternalContext();
-        System.out.println("" + request);
         Personne personne = findOne("matricule", matricule);
         System.out.println("ani tani");
         if (personne == null) {

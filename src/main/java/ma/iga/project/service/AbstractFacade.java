@@ -114,6 +114,12 @@ public abstract class AbstractFacade<T> {
         String operator = " = ";
         return addConstraint(beanAbrev, atributeName, DateUtil.convertFormUtilToSql(value), operator);
     }
+     public String addConstraintDateGraphe(String atributeName, Date value) {
+         
+        String beanAbrev ="a" ;
+        String operator = " = ";
+        return addConstraint(beanAbrev, atributeName, DateUtil.convertFormUtilToSql(value), operator);
+    }
 
     public String addConstraintMinMaxDate(String atributeName, Date valueMin, Date valueMax) {
         String beanAbrev = "item";
